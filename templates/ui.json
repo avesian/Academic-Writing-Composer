@@ -1,1 +1,138 @@
+{
+  "id": "ui",
+  "name": "Universal Indonesia",
+  "version": "1.0.0",
+  "country": "Indonesia",
+  "language": "id",
 
+  "metadata": {
+    "title": "",
+    "subtitle": "",
+    "author": "",
+    "nim": "",
+    "studyProgram": "",
+    "faculty": "",
+    "university": "",
+    "degree": "",
+    "city": "",
+    "year": "",
+    "logo": ""
+  },
+
+  "page": {
+    "size": "A4",
+    "orientation": "portrait",
+    "margins": {
+      "top": "4cm",
+      "left": "4cm",
+      "right": "3cm",
+      "bottom": "3cm"
+    }
+  },
+
+  "font": {
+    "family": "Times New Roman",
+    "size": 12,
+    "lineSpacing": 2,
+    "paragraphSpacingBefore": 0,
+    "paragraphSpacingAfter": 0
+  },
+
+  "paragraph": {
+    "alignment": "justify",
+    "firstLineIndent": "1.27cm"
+  },
+
+  "numbering": {
+    "frontMatter": "roman-lower",
+    "body": "decimal",
+    "appendix": "alphabet"
+  },
+
+  "citation": {
+    "style": "APA7"
+  },
+
+  "reference": {
+    "style": "APA7",
+    "sort": "author"
+  },
+
+  "chapters": {
+    "numberFormat": "BAB I",
+    "titleAlignment": "center",
+    "uppercase": true
+  },
+
+  "blocks": [
+    {
+      "type": "cover",
+      "required": true
+    },
+    {
+      "type": "approval",
+      "required": true
+    },
+    {
+      "type": "validation",
+      "required": false
+    },
+    {
+      "type": "originality",
+      "required": true
+    },
+    {
+      "type": "motto",
+      "required": false
+    },
+    {
+      "type": "dedication",
+      "required": false
+    },
+    {
+      "type": "abstract",
+      "required": true
+    },
+    {
+      "type": "abstract-en",
+      "required": true
+    },
+    {
+      "type": "preface",
+      "required": true
+    },
+    {
+      "type": "toc",
+      "required": true
+    },
+    {
+      "type": "list-table",
+      "required": false
+    },
+    {
+      "type": "list-figure",
+      "required": false
+    },
+    {
+      "type": "chapter",
+      "repeatable": true
+    },
+    {
+      "type": "reference",
+      "required": true
+    },
+    {
+      "type": "appendix",
+      "required": false
+    }
+  ],
+
+  "validation": {
+    "maxAbstractWords": 250,
+    "maxTitleLines": 4,
+    "requireKeywords": true,
+    "requireEnglishAbstract": true,
+    "requireReferences": true,
+    "minimumReferences": 20
+  }
+}
