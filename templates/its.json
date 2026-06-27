@@ -1,1 +1,143 @@
+{
+  "id": "its",
+  "name": "Institut Teknologi Sepuluh Nopember",
+  "version": "1.0.0",
+  "country": "Indonesia",
+  "language": "id",
 
+  "metadata": {
+    "university": "Institut Teknologi Sepuluh Nopember",
+    "faculty": "",
+    "studyProgram": "",
+    "degree": "",
+    "title": "",
+    "subtitle": "",
+    "author": "",
+    "nim": "",
+    "city": "Surabaya",
+    "year": "",
+    "logo": "assets/logo/its.png"
+  },
+
+  "page": {
+    "size": "A4",
+    "orientation": "portrait",
+    "margins": {
+      "top": "3cm",
+      "left": "4cm",
+      "right": "3cm",
+      "bottom": "3cm"
+    }
+  },
+
+  "font": {
+    "family": "Times New Roman",
+    "size": 12,
+    "lineSpacing": 2,
+    "paragraphSpacingBefore": 0,
+    "paragraphSpacingAfter": 0
+  },
+
+  "paragraph": {
+    "alignment": "justify",
+    "firstLineIndent": "1.27cm"
+  },
+
+  "heading": {
+    "chapter": {
+      "alignment": "center",
+      "uppercase": true,
+      "bold": true
+    },
+    "level1": {
+      "bold": true
+    },
+    "level2": {
+      "bold": false
+    },
+    "level3": {
+      "bold": false
+    }
+  },
+
+  "numbering": {
+    "frontMatter": "roman-lower",
+    "body": "decimal",
+    "appendix": "alphabet"
+  },
+
+  "citation": {
+    "style": "IEEE",
+    "manager": "Zotero"
+  },
+
+  "reference": {
+    "style": "IEEE",
+    "sort": "numeric",
+    "hangingIndent": "1.0cm"
+  },
+
+  "blocks": [
+    {
+      "type": "cover",
+      "required": true
+    },
+    {
+      "type": "approval",
+      "required": true
+    },
+    {
+      "type": "validation",
+      "required": true
+    },
+    {
+      "type": "originality",
+      "required": true
+    },
+    {
+      "type": "abstract",
+      "required": true
+    },
+    {
+      "type": "abstract-en",
+      "required": true
+    },
+    {
+      "type": "preface",
+      "required": true
+    },
+    {
+      "type": "toc",
+      "required": true
+    },
+    {
+      "type": "list-table",
+      "required": true
+    },
+    {
+      "type": "list-figure",
+      "required": true
+    },
+    {
+      "type": "chapter",
+      "repeatable": true,
+      "minimum": 4
+    },
+    {
+      "type": "reference",
+      "required": true
+    },
+    {
+      "type": "appendix",
+      "required": false
+    }
+  ],
+
+  "validation": {
+    "maxAbstractWords": 300,
+    "minReferences": 15,
+    "requireEnglishAbstract": true,
+    "requireKeywords": true,
+    "maxTitleLines": 3
+  }
+}
