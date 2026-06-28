@@ -1,1 +1,106 @@
+{
+  "id": "unej",
+  "name": "Universitas Jember",
+  "version": "1.0.0",
+  "country": "Indonesia",
+  "language": "id",
 
+  "metadata": {
+    "university": "Universitas Jember",
+    "faculty": "",
+    "studyProgram": "",
+    "degree": "",
+    "title": "",
+    "subtitle": "",
+    "author": "",
+    "nim": "",
+    "city": "Jember",
+    "year": "",
+    "logo": "assets/logo/unej.png"
+  },
+
+  "page": {
+    "size": "A4",
+    "orientation": "portrait",
+    "margins": {
+      "top": "4cm",
+      "left": "4cm",
+      "right": "3cm",
+      "bottom": "3cm"
+    }
+  },
+
+  "font": {
+    "family": "Times New Roman",
+    "size": 12,
+    "lineSpacing": 2,
+    "paragraphSpacingBefore": 0,
+    "paragraphSpacingAfter": 0
+  },
+
+  "paragraph": {
+    "alignment": "justify",
+    "firstLineIndent": "1.27cm"
+  },
+
+  "heading": {
+    "chapter": {
+      "alignment": "center",
+      "uppercase": true,
+      "bold": true
+    },
+    "level1": {
+      "bold": true
+    },
+    "level2": {
+      "bold": true
+    },
+    "level3": {
+      "bold": false
+    }
+  },
+
+  "numbering": {
+    "frontMatter": "roman-lower",
+    "body": "decimal",
+    "appendix": "alphabet"
+  },
+
+  "citation": {
+    "style": "APA7",
+    "manager": "Mendeley"
+  },
+
+  "reference": {
+    "style": "APA7",
+    "sort": "author",
+    "hangingIndent": "1.27cm"
+  },
+
+  "blocks": [
+    { "type": "cover", "required": true },
+    { "type": "approval", "required": true },
+    { "type": "validation", "required": true },
+    { "type": "originality", "required": true },
+    { "type": "motto", "required": false },
+    { "type": "dedication", "required": false },
+    { "type": "abstract", "required": true },
+    { "type": "abstract-en", "required": true },
+    { "type": "preface", "required": true },
+    { "type": "toc", "required": true },
+    { "type": "list-table", "required": true },
+    { "type": "list-figure", "required": true },
+    { "type": "chapter", "repeatable": true, "minimum": 5 },
+    { "type": "reference", "required": true },
+    { "type": "appendix", "required": true }
+  ],
+
+  "validation": {
+    "maxAbstractWords": 250,
+    "minReferences": 20,
+    "requireEnglishAbstract": true,
+    "requireKeywords": true,
+    "maxTitleLines": 4,
+    "plagiarismThreshold": 20
+  }
+}
