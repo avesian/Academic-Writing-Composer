@@ -1,1 +1,380 @@
+{
+  "id": "unars",
+  "name": "Universitas Abdurachman Saleh Situbondo",
+  "shortName": "UNARS",
+  "version": "2025.1",
+  "reference": "SK Rektor No. 100/UNARS/PT.SK/XII/2025",
+  "country": "Indonesia",
+  "language": "id",
 
+  "metadata": {
+    "university": "Universitas Abdurachman Saleh Situbondo",
+    "faculty": "",
+    "studyProgram": "",
+    "degree": "",
+    "title": "",
+    "subtitle": "",
+    "author": "",
+    "nim": "",
+    "city": "Situbondo",
+    "year": "",
+    "logo": "assets/logo/unars.png",
+    "logoSize": "4cm x 4cm",
+    "rector": "Dr. Muhammad Yusuf Ibrahim, S.H., M.H."
+  },
+
+  "page": {
+    "size": "A4",
+    "orientation": "portrait",
+    "margins": {
+      "top": "3cm",
+      "left": "4cm",
+      "right": "3cm",
+      "bottom": "3cm"
+    }
+  },
+
+  "font": {
+    "family": "Times New Roman",
+    "size": 12,
+    "lineSpacing": 1.5,
+    "paragraphSpacingBefore": 0,
+    "paragraphSpacingAfter": 0
+  },
+
+  "paragraph": {
+    "alignment": "justify",
+    "firstLineIndent": "1.27cm"
+  },
+
+  "heading": {
+    "chapter": {
+      "font": "Times New Roman",
+      "size": 14,
+      "alignment": "center",
+      "uppercase": true,
+      "bold": true,
+      "lineSpacing": 1
+    },
+    "level1": {
+      "font": "Times New Roman",
+      "size": 12,
+      "bold": true,
+      "uppercase": false
+    },
+    "level2": {
+      "font": "Times New Roman",
+      "size": 12,
+      "bold": true,
+      "uppercase": false
+    },
+    "level3": {
+      "font": "Times New Roman",
+      "size": 12,
+      "bold": false,
+      "italic": false
+    }
+  },
+
+  "cover": {
+    "logoPosition": "center-top",
+    "logoSize": "4cm x 4cm",
+    "titleFont": "Times New Roman",
+    "titleSize": 14,
+    "titleBold": true,
+    "titleUppercase": true,
+    "titleAlignment": "center",
+    "subtitleFont": "Times New Roman",
+    "subtitleSize": 12,
+    "subtitleBold": true,
+    "subtitleUppercase": true,
+    "authorFont": "Times New Roman",
+    "authorSize": 12,
+    "authorBold": true,
+    "authorUppercase": true,
+    "institutionFont": "Times New Roman",
+    "institutionSize": 12,
+    "institutionBold": true,
+    "institutionUppercase": true,
+    "yearFont": "Times New Roman",
+    "yearSize": 12,
+    "yearBold": true
+  },
+
+  "numbering": {
+    "frontMatter": "roman-lower",
+    "frontMatterStart": "i",
+    "body": "decimal",
+    "bodyStart": 1,
+    "appendix": "alphabet",
+    "position": "bottom-center",
+    "startFrom": "halaman-judul"
+  },
+
+  "footer": {
+    "enabled": true,
+    "startFrom": "abstract",
+    "font": "Arial",
+    "size": 10,
+    "format": "viewMaster Horizontal",
+    "background": false,
+    "text": "Universitas Abdurachman Saleh Situbondo",
+    "pageNumberPosition": "bottom-right",
+    "skipFirstPageOfChapter": true,
+    "note": "Khusus halaman di AWAL BAB tidak perlu footer, cukup nomor halaman"
+  },
+
+  "abstract": {
+    "lineSpacing": 1,
+    "keywordLabel": "Kata kunci",
+    "keywordLabelBold": true,
+    "paragraphSpacingAfterTitle": "1x enter"
+  },
+
+  "abstractEn": {
+    "titleItalic": true,
+    "contentItalic": true,
+    "lineSpacing": 1,
+    "keywordLabel": "Keywords",
+    "keywordLabelBold": true,
+    "keywordItalic": true
+  },
+
+  "originality": {
+    "aiDisclosureRequired": true,
+    "aiDisclosureText": "Dalam proses penyusunan karya ini, saya telah menggunakan bantuan teknologi kecerdasan buatan (Artificial Intelligence/AI) sebagai alat pendukung.",
+    "lineSpacing": 1.15,
+    "stampRequired": true,
+    "stampValue": "Materai cukup"
+  },
+
+  "publication": {
+    "lineSpacing": 1.5,
+    "stampRequired": true,
+    "stampValue": 10000
+  },
+
+  "approval": {
+    "supervisors": [
+      {
+        "role": "Dosen Pembimbing Utama",
+        "required": true
+      },
+      {
+        "role": "Dosen Pembimbing Anggota",
+        "required": true
+      }
+    ],
+    "approvedBy": "Ketua Program Studi",
+    "lineSpacing": 1.5
+  },
+
+  "validation": {
+    "examiners": 3,
+    "examinerRoles": [
+      "Ketua Penguji",
+      "Anggota I",
+      "Anggota II"
+    ],
+    "signedByDean": true,
+    "photoRequired": true,
+    "photoSize": "3x4",
+    "photoType": "hitam-putih",
+    "photoPaper": "doff silky"
+  },
+
+  "citation": {
+    "style": "APA7"
+  },
+
+  "reference": {
+    "style": "APA7",
+    "sort": "author",
+    "hangingIndent": "1.27cm"
+  },
+
+  "chapters": {
+    "numberFormat": "BAB I",
+    "romanNumerals": true,
+    "titleAlignment": "center",
+    "uppercase": true,
+    "bold": true,
+    "font": "Times New Roman",
+    "size": 14
+  },
+
+  "blocks": [
+    {
+      "type": "cover",
+      "label": "Halaman Sampul",
+      "order": 1,
+      "required": true,
+      "pageNumber": false,
+      "note": "Tanpa nomor halaman"
+    },
+    {
+      "type": "title-page",
+      "label": "Halaman Judul",
+      "order": 2,
+      "required": true,
+      "pageNumber": "i",
+      "additionalText": "Diajukan sebagai salah satu syarat untuk memperoleh Gelar Sarjana"
+    },
+    {
+      "type": "originality",
+      "label": "Halaman Pernyataan Orisinalitas",
+      "order": 3,
+      "required": true,
+      "pageNumber": "ii"
+    },
+    {
+      "type": "approval",
+      "label": "Lembar Persetujuan Skripsi",
+      "order": 4,
+      "required": true,
+      "pageNumber": "iii"
+    },
+    {
+      "type": "validation",
+      "label": "Halaman Pengesahan",
+      "order": 5,
+      "required": true,
+      "pageNumber": "iv"
+    },
+    {
+      "type": "publication-consent",
+      "label": "Pernyataan Persetujuan Publikasi Karya Ilmiah untuk Kepentingan Akademis",
+      "order": 6,
+      "required": true,
+      "pageNumber": "v"
+    },
+    {
+      "type": "preface",
+      "label": "Kata Pengantar",
+      "order": 7,
+      "required": true,
+      "pageNumber": "vi"
+    },
+    {
+      "type": "dedication",
+      "label": "Halaman Persembahan",
+      "order": 8,
+      "required": false,
+      "pageNumber": "vii"
+    },
+    {
+      "type": "motto",
+      "label": "Motto",
+      "order": 9,
+      "required": false,
+      "pageNumber": "viii"
+    },
+    {
+      "type": "abstract",
+      "label": "Abstrak",
+      "order": 10,
+      "required": true,
+      "pageNumber": "ix",
+      "footerStart": true,
+      "note": "Footer mulai dari halaman ini"
+    },
+    {
+      "type": "abstract-en",
+      "label": "Abstract",
+      "order": 11,
+      "required": true,
+      "pageNumber": "x"
+    },
+    {
+      "type": "toc",
+      "label": "Daftar Isi",
+      "order": 12,
+      "required": true,
+      "pageNumber": "xi"
+    },
+    {
+      "type": "list-table",
+      "label": "Daftar Tabel",
+      "order": 13,
+      "required": false,
+      "pageNumber": "xiv"
+    },
+    {
+      "type": "list-figure",
+      "label": "Daftar Gambar",
+      "order": 14,
+      "required": false,
+      "pageNumber": "xv"
+    },
+    {
+      "type": "list-other",
+      "label": "Daftar Lain-lain",
+      "order": 15,
+      "required": false,
+      "pageNumber": "xvi"
+    },
+    {
+      "type": "chapter",
+      "label": "Bab",
+      "order": 100,
+      "required": true,
+      "repeatable": true,
+      "minimum": 1,
+      "bodyStart": true,
+      "pageNumberReset": 1,
+      "note": "Penomoran body mulai ulang dari 1"
+    },
+    {
+      "type": "reference",
+      "label": "Daftar Pustaka",
+      "order": 200,
+      "required": true
+    },
+    {
+      "type": "appendix",
+      "label": "Lampiran",
+      "order": 300,
+      "required": false
+    }
+  ],
+
+  "chapterStructure": {
+    "BAB I": {
+      "title": "PENDAHULUAN",
+      "required": true,
+      "sections": [
+        "1.1 Latar Belakang",
+        "1.2 Rumusan Masalah",
+        "1.3 Tujuan Penelitian",
+        "1.4 Manfaat Penelitian"
+      ]
+    },
+    "BAB II": {
+      "title": "TINJAUAN PUSTAKA",
+      "required": true,
+      "sections": [
+        "2.1 Penelitian Terdahulu",
+        "2.2 Landasan Teori"
+      ]
+    }
+  },
+
+  "validationRules": {
+    "maxAbstractWords": 250,
+    "maxTitleLines": 4,
+    "requireKeywords": true,
+    "requireEnglishAbstract": true,
+    "requireReferences": true,
+    "minimumReferences": 20,
+    "requireAiDisclosure": true,
+    "requireOriginality": true,
+    "requirePublicationConsent": true,
+    "plagiarismThresholdPercent": 20
+  },
+
+  "contact": {
+    "website": "www.unars.ac.id",
+    "email": "unars_situbondo@unars.ac.id",
+    "address": "Jl. Pb. Sudirman No.7, Karangasem, Patokan, Kec. Situbondo, Kabupaten Situbondo, Jawa Timur 68312"
+  }
+}
