@@ -1,4 +1,3 @@
-```javascript id="v9m2la"
 /**
  * Theme.js
  * Theme Manager
@@ -119,4 +118,4 @@ export default class Theme {
     }
 
 }
-```
+
