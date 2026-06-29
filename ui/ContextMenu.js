@@ -1,4 +1,3 @@
-```javascript id="f3a9wd"
 /**
  * ContextMenu.js
  * Context Menu Component
@@ -178,4 +177,4 @@ export default class ContextMenu {
     }
 
 }
-```
+
