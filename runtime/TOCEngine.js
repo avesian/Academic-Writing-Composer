@@ -1,4 +1,3 @@
-```javascript
 /**
  * TOCEngine.js
  * Table of Contents Engine
@@ -149,4 +148,4 @@ export default class TOCEngine {
     }
 
 }
-```
+
