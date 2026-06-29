@@ -1,4 +1,3 @@
-```javascript id="r8mk4q"
 /**
  * NotificationCenter.js
  * Central Notification Manager
@@ -178,4 +177,4 @@ export default class NotificationCenter {
     }
 
 }
-```
+
