@@ -1,4 +1,3 @@
-```javascript
 /**
  * PageView.js
  * Document Page View
@@ -181,4 +180,4 @@ export default class PageView {
     }
 
 }
-```
+
