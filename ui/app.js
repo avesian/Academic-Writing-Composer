@@ -1,4 +1,10 @@
 ```javascript
+/**
+ * App.js
+ * Academic Writing Composer
+ * Bootstrap Application
+ */
+
 import Workspace from "./Workspace.js";
 import Toolbar from "./Toolbar.js";
 import Sidebar from "./Sidebar.js";
@@ -9,81 +15,109 @@ export default class App {
 
     constructor() {
 
-        this.root = document.getElementById("app");
+        this.root = null;
 
-        this.components = {};
+        this.workspace = null;
+
+        this.toolbar = null;
+
+        this.sidebar = null;
+
+        this.canvas = null;
+
+        this.statusbar = null;
 
         this.events = new Map();
+
+        this.state = "CREATED";
 
     }
 
     async init() {
 
-        this.createLayout();
+        this.root = document.getElementById("app");
+
+        if (!this.root) {
+
+            throw new Error("#app container not found.");
+
+        }
+
+        this.createWorkspace();
 
         this.mountComponents();
 
+        this.bindEvents();
+
+        this.state = "READY";
+
         this.emit("app:ready");
+
+        return this;
 
     }
 
-    createLayout() {
+    createWorkspace() {
 
-        this.root.innerHTML = `
-            <div class="awc-workspace">
+        this.workspace = new Workspace(this);
 
-                <header id="awc-toolbar"></header>
+        this.root.appendChild(
 
-                <main class="awc-main">
+            this.workspace.render()
 
-                    <aside id="awc-sidebar"></aside>
-
-                    <section id="awc-canvas"></section>
-
-                </main>
-
-                <footer id="awc-statusbar"></footer>
-
-            </div>
-        `;
+        );
 
     }
 
     mountComponents() {
 
-        this.components.toolbar = new Toolbar(this);
+        this.toolbar = new Toolbar(this);
 
-        this.components.sidebar = new Sidebar(this);
+        this.sidebar = new Sidebar(this);
 
-        this.components.canvas = new Canvas(this);
+        this.canvas = new Canvas(this);
 
-        this.components.statusbar = new Statusbar(this);
+        this.statusbar = new Statusbar(this);
 
-        this.components.workspace = new Workspace(this);
-
-        document
-            .getElementById("awc-toolbar")
+        this.workspace
+            .getToolbarContainer()
             .appendChild(
-                this.components.toolbar.render()
+                this.toolbar.render()
             );
 
-        document
-            .getElementById("awc-sidebar")
+        this.workspace
+            .getSidebarContainer()
             .appendChild(
-                this.components.sidebar.render()
+                this.sidebar.render()
             );
 
-        document
-            .getElementById("awc-canvas")
+        this.workspace
+            .getCanvasContainer()
             .appendChild(
-                this.components.canvas.render()
+                this.canvas.render()
             );
 
-        document
-            .getElementById("awc-statusbar")
+        this.workspace
+            .getStatusbarContainer()
             .appendChild(
-                this.components.statusbar.render()
+                this.statusbar.render()
             );
+
+    }
+
+    bindEvents() {
+
+        window.addEventListener(
+
+            "beforeunload",
+
+            event => {
+
+                this.emit("app:close");
+
+            }
+
+        );
 
     }
 
@@ -95,23 +129,59 @@ export default class App {
 
         }
 
-        this.events.get(event).push(callback);
+        this.events
+            .get(event)
+            .push(callback);
 
     }
 
     emit(event, payload = null) {
 
-        if (!this.events.has(event)) return;
+        if (!this.events.has(event)) {
+
+            return;
+
+        }
 
         this.events
             .get(event)
-            .forEach(callback => callback(payload));
+            .forEach(listener => {
+
+                listener(payload);
+
+            });
 
     }
 
-    get(name) {
+    off(event, callback) {
 
-        return this.components[name];
+        if (!this.events.has(event)) {
+
+            return;
+
+        }
+
+        this.events.set(
+
+            event,
+
+            this.events
+                .get(event)
+                .filter(fn => fn !== callback)
+
+        );
+
+    }
+
+    getComponent(name) {
+
+        return this[name];
+
+    }
+
+    getState() {
+
+        return this.state;
 
     }
 
