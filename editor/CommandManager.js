@@ -1,4 +1,3 @@
-```javascript
 /**
  * CommandManager.js
  * Command Pattern Manager
@@ -144,4 +143,4 @@ export default class CommandManager {
     }
 
 }
-```
+
