@@ -1,9 +1,10 @@
-```javascript id="k7qx2v"
+```javascript
 /**
  * Canvas.js
- * Academic Writing Composer
- * Document Canvas
+ * Integrated with DocumentEditor
  */
+
+import DocumentEditor from "../editor/DocumentEditor.js";
 
 export default class Canvas {
 
@@ -16,6 +17,8 @@ export default class Canvas {
         this.page = null;
 
         this.editor = null;
+
+        this.documentEditor = null;
 
         this.state = "CREATED";
 
@@ -41,25 +44,23 @@ export default class Canvas {
 
         this.editor.className = "awc-editor";
 
-        this.editor.contentEditable = "true";
+        this.editor.contentEditable = true;
 
         this.editor.spellcheck = false;
-
-        this.editor.innerHTML = `
-            <h1>Academic Writing Composer</h1>
-
-            <p>
-                Mulai menulis dokumen Anda di sini...
-            </p>
-        `;
 
         this.page.appendChild(this.editor);
 
         this.element.appendChild(this.page);
 
+        this.documentEditor = new DocumentEditor(this.app);
+
         this.bindEvents();
 
-        this.state = "RENDERED";
+        this.documentEditor.newDocument();
+
+        this.refresh();
+
+        this.state = "READY";
 
         return this.element;
 
@@ -69,52 +70,57 @@ export default class Canvas {
 
         this.editor.addEventListener("input", () => {
 
+            this.documentEditor.setContent(
+
+                this.editor.innerHTML
+
+            );
+
             this.app.emit(
+
                 "document:changed",
-                this.getContent()
+
+                this.documentEditor.getDocument()
+
             );
 
         });
 
-        this.app.on(
+        this.app.on("document:new", () => {
 
-            "document:new",
+            this.documentEditor.newDocument();
 
-            () => this.newDocument()
+            this.refresh();
 
-        );
+        });
 
-        this.app.on(
+        this.app.on("document:open", document => {
 
-            "document:set",
+            this.documentEditor.open(document);
 
-            content => this.setContent(content)
+            this.refresh();
 
-        );
+        });
 
-    }
+        this.app.on("document:save", () => {
 
-    newDocument() {
+            this.documentEditor.save();
 
-        this.editor.innerHTML = `
-            <h1>Untitled Document</h1>
+        });
 
-            <p></p>
-        `;
+        this.app.on("document:refresh", () => {
 
-        this.app.emit("document:created");
+            this.refresh();
 
-    }
-
-    setContent(content = "") {
-
-        this.editor.innerHTML = content;
+        });
 
     }
 
-    getContent() {
+    refresh() {
 
-        return this.editor.innerHTML;
+        this.editor.innerHTML =
+
+            this.documentEditor.renderHTML();
 
     }
 
@@ -124,33 +130,21 @@ export default class Canvas {
 
     }
 
-    clear() {
-
-        this.editor.innerHTML = "";
-
-    }
-
     getEditor() {
 
-        return this.editor;
+        return this.documentEditor;
 
     }
 
-    getPage() {
+    getContent() {
 
-        return this.page;
+        return this.documentEditor.getDocument();
 
     }
 
     getElement() {
 
         return this.element;
-
-    }
-
-    getState() {
-
-        return this.state;
 
     }
 
