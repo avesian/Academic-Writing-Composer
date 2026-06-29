@@ -1,4 +1,3 @@
-```javascript
 /**
  * ShortcutManager.js
  * Keyboard Shortcut Manager
@@ -175,4 +174,4 @@ export default class ShortcutManager {
     }
 
 }
-```
+
