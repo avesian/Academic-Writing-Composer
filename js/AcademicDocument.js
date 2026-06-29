@@ -3,8 +3,8 @@
  * Integrated with Block Registry
  */
 
-import BlockFactory from "../blocks/BlockFactory.js";
-import BlockRegistry from "../registry/BlockRegistry.js";
+import BlockFactory from "./BlockFactory.js";
+import BlockRegistry from "./BlockRegistry.js";
 
 export default class AcademicDocument {
 
