@@ -1,4 +1,3 @@
-```javascript
 /**
  * Workspace.js
  * Academic Writing Composer
@@ -132,23 +131,5 @@ export default class Workspace {
     }
 
 }
-```
 
-Setelah file ini dipakai, alur integrasi menjadi:
 
-```text
-index.html
-      │
-      ▼
-App.init()
-      │
-      ▼
-Workspace.render()
-      │
-      ├── mount("toolbar", Toolbar)
-      ├── mount("sidebar", Sidebar)
-      ├── mount("canvas", Canvas)
-      └── mount("statusbar", Statusbar)
-```
-
-Sehingga urutan **Workspace → Toolbar → Sidebar → Canvas → Statusbar** sudah benar-benar terhubung.
