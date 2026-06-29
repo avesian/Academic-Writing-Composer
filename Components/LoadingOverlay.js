@@ -1,4 +1,3 @@
-```javascript id="j5tw9m"
 /**
  * LoadingOverlay.js
  * Fullscreen Loading Overlay
@@ -153,4 +152,4 @@ export default class LoadingOverlay {
     }
 
 }
-```
+
