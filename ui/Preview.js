@@ -1,4 +1,3 @@
-```javascript id="h8m2qp"
 /**
  * Preview.js
  * Live Document Preview
@@ -175,4 +174,4 @@ export default class Preview {
     }
 
 }
-```
+
