@@ -3,7 +3,7 @@
  * Integrated with AcademicDocument
  */
 
-import AcademicDocument from "../core/AcademicDocument.js";
+import AcademicDocument from "../AcademicDocument.js";
 
 export default class DocumentEditor {
 
