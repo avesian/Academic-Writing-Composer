@@ -1,4 +1,3 @@
-```javascript
 /**
  * Selection.js
  * Selection Manager
@@ -51,4 +50,4 @@ export default class Selection {
     }
 
 }
-```
+
