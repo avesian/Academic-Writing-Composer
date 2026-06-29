@@ -1,4 +1,3 @@
-```javascript id="cr3f8a"
 /**
  * CrossReferenceEngine.js
  * Automatic Cross Reference Engine
@@ -231,4 +230,4 @@ export default class CrossReferenceEngine {
     }
 
 }
-```
+
