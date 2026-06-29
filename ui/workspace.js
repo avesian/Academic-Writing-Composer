@@ -2,7 +2,7 @@
 /**
  * Workspace.js
  * Academic Writing Composer
- * Main Workspace Container
+ * Layout Container
  */
 
 export default class Workspace {
@@ -13,13 +13,7 @@ export default class Workspace {
 
         this.element = null;
 
-        this.toolbar = null;
-
-        this.sidebar = null;
-
-        this.canvas = null;
-
-        this.statusbar = null;
+        this.refs = {};
 
         this.state = "CREATED";
 
@@ -63,93 +57,71 @@ export default class Workspace {
             </footer>
         `;
 
-        this.toolbar = this.element.querySelector("#awc-toolbar");
+        this.refs = {
 
-        this.sidebar = this.element.querySelector("#awc-sidebar");
+            toolbar:
+                this.element.querySelector("#awc-toolbar"),
 
-        this.canvas = this.element.querySelector("#awc-canvas");
+            sidebar:
+                this.element.querySelector("#awc-sidebar"),
 
-        this.statusbar = this.element.querySelector("#awc-statusbar");
+            canvas:
+                this.element.querySelector("#awc-canvas"),
 
-        this.bindEvents();
+            statusbar:
+                this.element.querySelector("#awc-statusbar")
 
-        this.state = "RENDERED";
+        };
+
+        this.state = "READY";
 
         return this.element;
 
     }
 
-    bindEvents() {
+    mount(name, component) {
 
-        window.addEventListener(
-            "resize",
-            () => this.handleResize()
+        if (!this.refs[name]) {
+
+            throw new Error(`Unknown container : ${name}`);
+
+        }
+
+        this.refs[name].replaceChildren(
+            component.render()
         );
 
-        this.app.on(
-            "workspace:refresh",
-            () => this.refresh()
-        );
-
-    }
-
-    handleResize() {
-
-        this.app.emit("workspace:resize", {
-            width: window.innerWidth,
-            height: window.innerHeight
-        });
-
-    }
-
-    refresh() {
-
-        this.app.emit("workspace:updated");
+        return this;
 
     }
 
     getToolbarContainer() {
 
-        return this.toolbar;
+        return this.refs.toolbar;
 
     }
 
     getSidebarContainer() {
 
-        return this.sidebar;
+        return this.refs.sidebar;
 
     }
 
     getCanvasContainer() {
 
-        return this.canvas;
+        return this.refs.canvas;
 
     }
 
     getStatusbarContainer() {
 
-        return this.statusbar;
+        return this.refs.statusbar;
 
     }
 
-    destroy() {
+    refresh() {
 
-        window.removeEventListener(
-            "resize",
-            this.handleResize
-        );
-
-        this.element?.remove();
-
-        this.element = null;
-
-        this.state = "DESTROYED";
-
-    }
-
-    getElement() {
-
-        return this.element;
+        this.app.emit("workspace:refresh");
 
     }
 
@@ -161,3 +133,22 @@ export default class Workspace {
 
 }
 ```
+
+Setelah file ini dipakai, alur integrasi menjadi:
+
+```text
+index.html
+      │
+      ▼
+App.init()
+      │
+      ▼
+Workspace.render()
+      │
+      ├── mount("toolbar", Toolbar)
+      ├── mount("sidebar", Sidebar)
+      ├── mount("canvas", Canvas)
+      └── mount("statusbar", Statusbar)
+```
+
+Sehingga urutan **Workspace → Toolbar → Sidebar → Canvas → Statusbar** sudah benar-benar terhubung.
