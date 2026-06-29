@@ -1,4 +1,3 @@
-```javascript id="m7vk3p"
 /**
  * ImageUploader.js
  * Reusable Image Uploader Component
@@ -183,4 +182,3 @@ export default class ImageUploader {
     }
 
 }
-```
