@@ -1,4 +1,3 @@
-```javascript id="9whf2e"
 /**
  * IconManager.js
  * Icon Registry & Loader
@@ -120,4 +119,4 @@ export default class IconManager {
     }
 
 }
-```
+
