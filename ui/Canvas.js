@@ -1,4 +1,4 @@
-```javascript
+
 /**
  * Canvas.js
  * Integrated with DocumentEditor
@@ -149,4 +149,4 @@ export default class Canvas {
     }
 
 }
-```
+
