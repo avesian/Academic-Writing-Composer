@@ -1,4 +1,3 @@
-```javascript
 /**
  * Keyboard.js
  * Keyboard Shortcut Manager
@@ -72,4 +71,4 @@ export default class Keyboard {
     }
 
 }
-```
+
