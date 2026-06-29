@@ -1,4 +1,3 @@
-```javascript
 /**
  * Button.js
  * Reusable Button Component
@@ -151,4 +150,4 @@ export default class Button {
     }
 
 }
-```
+
