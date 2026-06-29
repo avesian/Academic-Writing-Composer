@@ -1,1 +1,251 @@
+```css id="x7k2mp"
+/* ==========================================================
+   Academic Writing Composer
+   components.css
+   ========================================================== */
+
+/* Button */
+
+.awc-button{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:.5rem;
+    padding:.625rem 1rem;
+    border:1px solid transparent;
+    border-radius:8px;
+    background:#2563eb;
+    color:#fff;
+    font-size:.9rem;
+    font-weight:500;
+    cursor:pointer;
+    transition:.2s ease;
+}
+
+.awc-button:hover{
+    background:#1d4ed8;
+}
+
+.awc-button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.awc-button-secondary{
+    background:#e5e7eb;
+    color:#111827;
+}
+
+.awc-button-secondary:hover{
+    background:#d1d5db;
+}
+
+/* Input */
+
+.awc-input,
+.awc-select,
+.awc-textarea{
+    display:flex;
+    flex-direction:column;
+    gap:.4rem;
+    width:100%;
+}
+
+.awc-input-label,
+.awc-select-label,
+.awc-textarea-label{
+    font-size:.85rem;
+    font-weight:600;
+    color:#374151;
+}
+
+.awc-input input,
+.awc-select select,
+.awc-textarea textarea{
+    width:100%;
+    padding:.7rem .9rem;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    background:#fff;
+    transition:border-color .2s ease;
+}
+
+.awc-input input:focus,
+.awc-select select:focus,
+.awc-textarea textarea:focus{
+    border-color:#2563eb;
+}
+
+/* Card */
+
+.awc-card{
+    display:flex;
+    flex-direction:column;
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.awc-card-header,
+.awc-card-footer{
+    padding:1rem;
+    background:#f9fafb;
+}
+
+.awc-card-body{
+    padding:1rem;
+}
+
+.awc-card-title{
+    font-size:1rem;
+    font-weight:700;
+}
+
+.awc-card-subtitle{
+    margin-top:.25rem;
+    font-size:.85rem;
+    color:#6b7280;
+}
+
+.awc-card-clickable{
+    cursor:pointer;
+}
+
+.awc-card-clickable:hover{
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+
+/* Tabs */
+
+.awc-tabs-header{
+    display:flex;
+    gap:.5rem;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.awc-tab-button{
+    padding:.75rem 1rem;
+    background:none;
+    border:none;
+    cursor:pointer;
+}
+
+.awc-tab-button.active{
+    color:#2563eb;
+    border-bottom:2px solid #2563eb;
+}
+
+.awc-tabs-content{
+    padding:1rem;
+}
+
+/* Accordion */
+
+.awc-accordion-item{
+    border:1px solid #e5e7eb;
+    border-radius:8px;
+    overflow:hidden;
+    margin-bottom:.75rem;
+}
+
+.awc-accordion-header{
+    width:100%;
+    padding:.85rem 1rem;
+    text-align:left;
+    background:#f9fafb;
+    font-weight:600;
+}
+
+.awc-accordion-body{
+    padding:1rem;
+    background:#fff;
+}
+
+/* Dropdown */
+
+.awc-dropdown{
+    position:relative;
+    display:inline-block;
+}
+
+.awc-dropdown-button{
+    padding:.65rem 1rem;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    background:#fff;
+}
+
+.awc-dropdown-menu{
+    position:absolute;
+    top:calc(100% + .5rem);
+    left:0;
+    min-width:180px;
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:8px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    z-index:1000;
+}
+
+.awc-dropdown-item{
+    width:100%;
+    padding:.75rem 1rem;
+    text-align:left;
+}
+
+.awc-dropdown-item:hover{
+    background:#f3f4f6;
+}
+
+/* Color Picker */
+
+.awc-color-picker{
+    display:flex;
+    flex-direction:column;
+    gap:.75rem;
+}
+
+.awc-color-presets{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.5rem;
+}
+
+.awc-color-swatch{
+    width:28px;
+    height:28px;
+    border:2px solid #e5e7eb;
+    border-radius:50%;
+}
+
+.awc-color-swatch.active{
+    border-color:#111827;
+}
+
+/* Image Uploader */
+
+.awc-image-uploader{
+    display:flex;
+    flex-direction:column;
+    gap:.75rem;
+}
+
+.awc-image-preview{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:160px;
+    border:2px dashed #d1d5db;
+    border-radius:10px;
+    background:#fafafa;
+}
+
+.awc-image-preview img{
+    max-width:100%;
+    max-height:250px;
+    object-fit:contain;
+    border-radius:8px;
+}
+```
 
