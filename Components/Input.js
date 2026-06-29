@@ -1,4 +1,3 @@
-```javascript id="y7m3qa"
 /**
  * Input.js
  * Reusable Input Component
@@ -192,4 +191,4 @@ export default class Input {
     }
 
 }
-```
+
