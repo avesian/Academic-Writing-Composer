@@ -1,4 +1,3 @@
-```javascript id="8vpk2m"
 /**
  * FileManager.js
  * File Import / Export Manager
@@ -149,4 +148,4 @@ export default class FileManager {
     }
 
 }
-```
+
