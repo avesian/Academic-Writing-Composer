@@ -1,4 +1,3 @@
-
 /**
  * BlockPanel.js
  * Available Block Panel
