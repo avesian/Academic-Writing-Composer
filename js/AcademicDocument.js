@@ -1,4 +1,3 @@
-```javascript
 /**
  * AcademicDocument.js
  * Integrated with Block Registry
@@ -168,4 +167,4 @@ export default class AcademicDocument {
     }
 
 }
-```
+
