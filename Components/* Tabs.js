@@ -1,4 +1,3 @@
-```javascript id="q7d2lf"
 /**
  * Tabs.js
  * Reusable Tabs Component
@@ -198,4 +197,4 @@ export default class Tabs {
     }
 
 }
-```
+
