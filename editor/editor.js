@@ -1,4 +1,3 @@
-```javascript
 /**
  * Editor.js
  * Academic Document Editor
@@ -289,4 +288,3 @@ export default class Editor {
     }
 
 }
-```
