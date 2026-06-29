@@ -1,1 +1,172 @@
+```css id="e4tx8v"
+/* ==========================================================
+   Academic Writing Composer
+   editor.css
+   ========================================================== */
+
+/* Workspace */
+
+.awc-workspace{
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+/* Toolbar */
+
+.awc-toolbar{
+    display:flex;
+    align-items:center;
+    gap:.75rem;
+    height:56px;
+    padding:0 16px;
+    background:#ffffff;
+    border-bottom:1px solid #e5e7eb;
+    flex-shrink:0;
+    z-index:100;
+}
+
+/* Main */
+
+.awc-main{
+    display:flex;
+    flex:1;
+    overflow:hidden;
+}
+
+/* Sidebar */
+
+.awc-sidebar{
+    width:280px;
+    min-width:280px;
+    background:#f8fafc;
+    border-right:1px solid #e5e7eb;
+    overflow:auto;
+}
+
+.awc-sidebar-section{
+    padding:16px;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.awc-sidebar-title{
+    margin-bottom:12px;
+    font-size:.9rem;
+    font-weight:700;
+    color:#374151;
+}
+
+/* Canvas */
+
+.awc-canvas{
+    flex:1;
+    overflow:auto;
+    padding:32px;
+    background:#eef2f7;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+}
+
+/* A4 Page */
+
+.awc-page{
+    width:210mm;
+    min-height:297mm;
+    background:#ffffff;
+    box-shadow:0 8px 24px rgba(0,0,0,.12);
+    padding:25mm;
+    margin-bottom:32px;
+    position:relative;
+}
+
+/* Editable Area */
+
+.awc-editor{
+    width:100%;
+    min-height:247mm;
+    outline:none;
+    font-size:12pt;
+    line-height:1.7;
+    color:#111827;
+}
+
+.awc-editor:focus{
+    outline:none;
+}
+
+/* Blocks */
+
+.awc-block{
+    width:100%;
+    margin-bottom:12px;
+}
+
+.awc-block.selected{
+    outline:2px solid #2563eb;
+    outline-offset:2px;
+}
+
+/* Placeholder */
+
+.awc-placeholder{
+    color:#9ca3af;
+    font-style:italic;
+}
+
+/* Statusbar */
+
+.awc-statusbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    height:32px;
+    padding:0 16px;
+    background:#ffffff;
+    border-top:1px solid #e5e7eb;
+    font-size:.8rem;
+    color:#6b7280;
+    flex-shrink:0;
+}
+
+/* Preview */
+
+.awc-preview{
+    width:100%;
+    height:100%;
+    overflow:auto;
+    background:#ffffff;
+}
+
+/* Responsive */
+
+@media (max-width:1024px){
+
+    .awc-sidebar{
+        width:240px;
+        min-width:240px;
+    }
+
+}
+
+@media (max-width:768px){
+
+    .awc-sidebar{
+        display:none;
+    }
+
+    .awc-canvas{
+        padding:16px;
+    }
+
+    .awc-page{
+        width:100%;
+        min-height:auto;
+        padding:20mm;
+    }
+
+}
+```
 
