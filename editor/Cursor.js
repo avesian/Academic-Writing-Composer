@@ -1,4 +1,3 @@
-```javascript
 /**
  * Cursor.js
  * Caret Manager
@@ -49,4 +48,4 @@ export default class Cursor {
     }
 
 }
-```
+
