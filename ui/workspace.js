@@ -1,180 +1,161 @@
-```javascript id="1d8xwe"
+```javascript
 /**
  * Workspace.js
- * Main Workspace Layout
- * Version: 2.0.0
+ * Academic Writing Composer
+ * Main Workspace Container
  */
 
 export default class Workspace {
 
-    constructor(app = null) {
+    constructor(app) {
 
         this.app = app;
 
-        this.container = null;
+        this.element = null;
 
-        this.root = null;
+        this.toolbar = null;
 
-        this.layout = {
-            sidebar: null,
-            canvas: null,
-            properties: null,
-            statusbar: null
-        };
+        this.sidebar = null;
+
+        this.canvas = null;
+
+        this.statusbar = null;
 
         this.state = "CREATED";
 
     }
 
-    mount(selector = "#app") {
-
-        this.container =
-            typeof selector === "string"
-                ? document.querySelector(selector)
-                : selector;
-
-        if (!this.container) {
-            throw new Error("Workspace container not found.");
-        }
-
-        this.createLayout();
-
-        this.render();
-
-        this.state = "MOUNTED";
-
-        return this;
-
-    }
-
-    createLayout() {
-
-        this.root = document.createElement("div");
-
-        this.root.className = "awc-workspace";
-
-        this.root.innerHTML = `
-            <div class="awc-toolbar"></div>
-
-            <div class="awc-body">
-
-                <aside class="awc-sidebar"></aside>
-
-                <main class="awc-canvas"></main>
-
-                <aside class="awc-properties"></aside>
-
-            </div>
-
-            <footer class="awc-statusbar"></footer>
-        `;
-
-        this.layout.sidebar =
-            this.root.querySelector(".awc-sidebar");
-
-        this.layout.canvas =
-            this.root.querySelector(".awc-canvas");
-
-        this.layout.properties =
-            this.root.querySelector(".awc-properties");
-
-        this.layout.statusbar =
-            this.root.querySelector(".awc-statusbar");
-
-        return this;
-
-    }
-
     render() {
 
-        if (!this.container || !this.root) return this;
+        if (this.element) {
 
-        this.container.innerHTML = "";
+            return this.element;
 
-        this.container.appendChild(this.root);
+        }
+
+        this.element = document.createElement("div");
+
+        this.element.className = "awc-workspace";
+
+        this.element.innerHTML = `
+            <header
+                id="awc-toolbar"
+                class="awc-toolbar">
+            </header>
+
+            <main class="awc-main">
+
+                <aside
+                    id="awc-sidebar"
+                    class="awc-sidebar">
+                </aside>
+
+                <section
+                    id="awc-canvas"
+                    class="awc-canvas">
+                </section>
+
+            </main>
+
+            <footer
+                id="awc-statusbar"
+                class="awc-statusbar">
+            </footer>
+        `;
+
+        this.toolbar = this.element.querySelector("#awc-toolbar");
+
+        this.sidebar = this.element.querySelector("#awc-sidebar");
+
+        this.canvas = this.element.querySelector("#awc-canvas");
+
+        this.statusbar = this.element.querySelector("#awc-statusbar");
+
+        this.bindEvents();
 
         this.state = "RENDERED";
 
-        return this;
+        return this.element;
 
     }
 
-    resize() {
+    bindEvents() {
 
-        this.app?.emit("workspace:resize");
+        window.addEventListener(
+            "resize",
+            () => this.handleResize()
+        );
 
-        return this;
+        this.app.on(
+            "workspace:refresh",
+            () => this.refresh()
+        );
 
     }
 
-    clear() {
+    handleResize() {
 
-        if (this.layout.canvas) {
-            this.layout.canvas.innerHTML = "";
-        }
+        this.app.emit("workspace:resize", {
+            width: window.innerWidth,
+            height: window.innerHeight
+        });
 
-        return this;
+    }
+
+    refresh() {
+
+        this.app.emit("workspace:updated");
+
+    }
+
+    getToolbarContainer() {
+
+        return this.toolbar;
+
+    }
+
+    getSidebarContainer() {
+
+        return this.sidebar;
+
+    }
+
+    getCanvasContainer() {
+
+        return this.canvas;
+
+    }
+
+    getStatusbarContainer() {
+
+        return this.statusbar;
 
     }
 
     destroy() {
 
-        if (this.root) {
+        window.removeEventListener(
+            "resize",
+            this.handleResize
+        );
 
-            this.root.remove();
+        this.element?.remove();
 
-        }
-
-        this.root = null;
-
-        this.container = null;
+        this.element = null;
 
         this.state = "DESTROYED";
 
     }
 
-    getSidebarElement() {
+    getElement() {
 
-        return this.layout.sidebar;
-
-    }
-
-    getCanvasElement() {
-
-        return this.layout.canvas;
-
-    }
-
-    getPropertiesElement() {
-
-        return this.layout.properties;
-
-    }
-
-    getStatusbarElement() {
-
-        return this.layout.statusbar;
-
-    }
-
-    getRootElement() {
-
-        return this.root;
+        return this.element;
 
     }
 
     getState() {
 
         return this.state;
-
-    }
-
-    toJSON() {
-
-        return {
-            state: this.state,
-            mounted: !!this.root
-        };
 
     }
 
