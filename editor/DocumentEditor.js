@@ -1,4 +1,3 @@
-```javascript
 /**
  * DocumentEditor.js
  * Integrated with AcademicDocument
@@ -129,4 +128,4 @@ export default class DocumentEditor {
     }
 
 }
-```
+
