@@ -1,4 +1,3 @@
-```javascript id="p8v2ke"
 /**
  * History.js
  * Undo / Redo History Manager
@@ -134,4 +133,4 @@ export default class History {
     }
 
 }
-```
+
