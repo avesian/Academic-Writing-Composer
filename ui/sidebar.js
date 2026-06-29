@@ -1,128 +1,144 @@
-```javascript
+```javascript id="s4mn8x"
 /**
  * Sidebar.js
- * Navigation Sidebar
- * Version: 2.0.0
+ * Academic Writing Composer
+ * Sidebar Container
  */
 
 export default class Sidebar {
 
-    constructor(app = null) {
+    constructor(app) {
 
         this.app = app;
 
         this.element = null;
 
-        this.items = [
-            { id: "document", label: "Document", icon: "📄" },
-            { id: "cover", label: "Cover", icon: "📘" },
-            { id: "chapter", label: "Chapters", icon: "📑" },
-            { id: "references", label: "References", icon: "📚" },
-            { id: "appendix", label: "Appendix", icon: "📎" }
-        ];
-
-        this.active = "document";
-
         this.state = "CREATED";
+
+        this.sections = {};
 
     }
 
     render() {
 
-        const workspace = this.app?.workspace?.getRootElement();
+        if (this.element) {
 
-        if (!workspace) return this;
+            return this.element;
 
-        this.element = workspace.querySelector(".awc-sidebar");
+        }
 
-        if (!this.element) return this;
+        this.element = document.createElement("aside");
 
-        this.element.innerHTML = "";
+        this.element.className = "awc-sidebar";
 
-        this.items.forEach(item => {
+        this.createSections();
 
-            this.element.appendChild(
-                this.createItem(item)
-            );
-
-        });
+        this.bindEvents();
 
         this.state = "RENDERED";
 
-        return this;
+        return this.element;
 
     }
 
-    createItem(item) {
+    createSections() {
 
-        const button = document.createElement("button");
+        const panels = [
 
-        button.className = "awc-sidebar-item";
+            {
+                id: "outline",
+                title: "Outline"
+            },
 
-        if (item.id === this.active) {
-            button.classList.add("active");
-        }
+            {
+                id: "blocks",
+                title: "Blocks"
+            },
 
-        button.dataset.id = item.id;
+            {
+                id: "properties",
+                title: "Properties"
+            }
 
-        button.innerHTML = `
-            <span class="awc-sidebar-icon">${item.icon}</span>
-            <span class="awc-sidebar-label">${item.label}</span>
-        `;
+        ];
 
-        button.addEventListener("click", () => {
+        panels.forEach(panel => {
 
-            this.select(item.id);
+            const section = document.createElement("section");
+
+            section.className = "awc-sidebar-section";
+
+            section.innerHTML = `
+                <h3 class="awc-sidebar-title">
+                    ${panel.title}
+                </h3>
+
+                <div
+                    id="awc-${panel.id}"
+                    class="awc-sidebar-content">
+                </div>
+            `;
+
+            this.sections[panel.id] = section.querySelector(
+                ".awc-sidebar-content"
+            );
+
+            this.element.appendChild(section);
 
         });
 
-        return button;
-
     }
 
-    select(id) {
+    bindEvents() {
 
-        this.active = id;
-
-        this.render();
-
-        this.app?.emit("sidebar:select", id);
-
-        return this;
-
-    }
-
-    addItem(item) {
-
-        this.items.push(item);
-
-        this.render();
-
-        return this;
-
-    }
-
-    removeItem(id) {
-
-        this.items = this.items.filter(
-            item => item.id !== id
+        this.app.on(
+            "outline:update",
+            data => this.updateOutline(data)
         );
 
-        this.render();
+        this.app.on(
+            "blocks:update",
+            data => this.updateBlocks(data)
+        );
 
-        return this;
+        this.app.on(
+            "properties:update",
+            data => this.updateProperties(data)
+        );
 
     }
 
-    getActive() {
+    updateOutline(content = "") {
 
-        return this.active;
+        this.sections.outline.innerHTML = content;
 
     }
 
-    getItems() {
+    updateBlocks(content = "") {
 
-        return [...this.items];
+        this.sections.blocks.innerHTML = content;
+
+    }
+
+    updateProperties(content = "") {
+
+        this.sections.properties.innerHTML = content;
+
+    }
+
+    clear() {
+
+        Object.values(this.sections).forEach(section => {
+
+            section.innerHTML = "";
+
+        });
+
+    }
+
+    getSection(name) {
+
+        return this.sections[name];
 
     }
 
@@ -135,16 +151,6 @@ export default class Sidebar {
     getState() {
 
         return this.state;
-
-    }
-
-    toJSON() {
-
-        return {
-            state: this.state,
-            active: this.active,
-            totalItems: this.items.length
-        };
 
     }
 
