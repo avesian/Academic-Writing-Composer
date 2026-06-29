@@ -1,129 +1,117 @@
-```javascript id="gq2m8r"
+```javascript id="t6kp9d"
 /**
  * Toolbar.js
+ * Academic Writing Composer
  * Main Toolbar
- * Version: 2.0.0
  */
 
 export default class Toolbar {
 
-    constructor(app = null) {
+    constructor(app) {
 
         this.app = app;
 
         this.element = null;
 
-        this.tools = [
-            { id: "new", label: "New", icon: "📄" },
-            { id: "open", label: "Open", icon: "📂" },
-            { id: "save", label: "Save", icon: "💾" },
-            { id: "undo", label: "Undo", icon: "↶" },
-            { id: "redo", label: "Redo", icon: "↷" },
-            { id: "export", label: "Export", icon: "⬇" },
-            { id: "preview", label: "Preview", icon: "👁" },
-            { id: "settings", label: "Settings", icon: "⚙" }
-        ];
-
         this.state = "CREATED";
+
+        this.buttons = [];
 
     }
 
     render() {
 
-        const workspace = this.app?.workspace?.getRootElement();
+        if (this.element) {
 
-        if (!workspace) return this;
+            return this.element;
 
-        this.element = workspace.querySelector(".awc-toolbar");
+        }
 
-        if (!this.element) return this;
+        this.element = document.createElement("div");
 
-        this.element.innerHTML = "";
+        this.element.className = "awc-toolbar";
 
-        this.tools.forEach(tool => {
-
-            this.element.appendChild(
-                this.createButton(tool)
-            );
-
-        });
+        this.createButtons();
 
         this.state = "RENDERED";
 
-        return this;
+        return this.element;
 
     }
 
-    createButton(tool) {
+    createButtons() {
 
-        const button = document.createElement("button");
+        const actions = [
 
-        button.className = "awc-tool-button";
+            ["New", "document:new"],
+            ["Open", "document:open"],
+            ["Save", "document:save"],
 
-        button.dataset.action = tool.id;
+            ["Undo", "history:undo"],
+            ["Redo", "history:redo"],
 
-        button.title = tool.label;
+            ["Preview", "preview:open"],
+            ["Export", "export:open"],
 
-        button.innerHTML = `
-            <span class="awc-tool-icon">${tool.icon}</span>
-            <span class="awc-tool-label">${tool.label}</span>
-        `;
+            ["Theme", "theme:toggle"]
 
-        button.addEventListener("click", () => {
+        ];
 
-            this.handleAction(tool.id);
+        actions.forEach(([label, event]) => {
+
+            const button = document.createElement("button");
+
+            button.className = "awc-button";
+
+            button.type = "button";
+
+            button.textContent = label;
+
+            button.addEventListener("click", () => {
+
+                this.app.emit(event);
+
+            });
+
+            this.buttons.push(button);
+
+            this.element.appendChild(button);
 
         });
 
-        return button;
+    }
+
+    enable(label) {
+
+        const button = this.findButton(label);
+
+        if (button) {
+
+            button.disabled = false;
+
+        }
 
     }
 
-    handleAction(action) {
+    disable(label) {
 
-        this.app?.emit(`toolbar:${action}`);
+        const button = this.findButton(label);
 
-    }
+        if (button) {
 
-    addTool(tool) {
+            button.disabled = true;
 
-        this.tools.push(tool);
-
-        this.render();
-
-        return this;
+        }
 
     }
 
-    removeTool(id) {
+    findButton(label) {
 
-        this.tools = this.tools.filter(
-            tool => tool.id !== id
+        return this.buttons.find(
+
+            button => button.textContent === label
+
         );
-
-        this.render();
-
-        return this;
-
-    }
-
-    enable(id) {
-
-        const button = this.element?.querySelector(
-            `[data-action="${id}"]`
-        );
-
-        if (button) button.disabled = false;
-
-    }
-
-    disable(id) {
-
-        const button = this.element?.querySelector(
-            `[data-action="${id}"]`
-        );
-
-        if (button) button.disabled = true;
 
     }
 
@@ -133,24 +121,9 @@ export default class Toolbar {
 
     }
 
-    getTools() {
-
-        return [...this.tools];
-
-    }
-
     getState() {
 
         return this.state;
-
-    }
-
-    toJSON() {
-
-        return {
-            state: this.state,
-            totalTools: this.tools.length
-        };
 
     }
 
