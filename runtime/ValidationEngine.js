@@ -1,4 +1,3 @@
-```javascript
 /**
  * ValidationEngine.js
  * Academic Document Validation Engine
@@ -278,4 +277,4 @@ export default class ValidationEngine {
     }
 
 }
-```
+
