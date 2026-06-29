@@ -1,222 +1,131 @@
 ```javascript
 /**
  * DocumentEditor.js
- * Academic Document Editor
- * Version: 1.0.0
+ * Integrated with AcademicDocument
  */
 
-import Editor from "./Editor.js";
+import AcademicDocument from "../core/AcademicDocument.js";
 
-export default class DocumentEditor extends Editor {
+export default class DocumentEditor {
 
-    constructor(options = {}) {
-        super(options);
+    constructor(app) {
 
-        this.activeBlock = null;
-        this.activePage = 1;
-        this.zoom = 100;
+        this.app = app;
 
-        this.documentState = {
-            modified: false,
-            readonly: false
-        };
+        this.document = new AcademicDocument();
+
+        this.state = "READY";
+
     }
 
-    open(document) {
-        super.open(document);
+    newDocument() {
 
-        this.documentState.modified = false;
-        this.activePage = 1;
+        this.document = new AcademicDocument();
 
-        return this;
-    }
+        this.app?.emit(
 
-    create(metadata = {}) {
-        const document = super.create(metadata);
+            "document:created",
 
-        this.documentState.modified = false;
-        this.activePage = 1;
+            this.document
 
-        return document;
-    }
-
-    markModified(value = true) {
-        this.documentState.modified = value;
-        return this;
-    }
-
-    isModified() {
-        return this.documentState.modified;
-    }
-
-    setReadonly(value = true) {
-        this.documentState.readonly = value;
-        return this;
-    }
-
-    isReadonly() {
-        return this.documentState.readonly;
-    }
-
-    selectBlock(id) {
-
-        const block = this.getBlocks().find(
-            item => item.id === id
         );
 
-        if (!block) return null;
+        return this.document;
 
-        this.activeBlock = block;
-
-        this.emit("block:selected", block);
-
-        return block;
     }
 
-    getActiveBlock() {
-        return this.activeBlock;
-    }
+    open(documentData) {
 
-    insertBlock(block) {
+        if (documentData instanceof AcademicDocument) {
 
-        if (this.documentState.readonly) {
-            return false;
+            this.document = documentData;
+
+        } else {
+
+            this.document = new AcademicDocument();
+
+            this.document.fromJSON(documentData);
+
         }
 
-        this.addBlock(block);
+        this.app?.emit(
 
-        this.markModified();
+            "document:opened",
 
-        this.emit("block:insert", block);
+            this.document
 
-        return true;
-    }
-
-    deleteBlock(id) {
-
-        if (this.documentState.readonly) {
-            return false;
-        }
-
-        this.removeBlock(id);
-
-        this.markModified();
-
-        this.emit("block:delete", id);
-
-        return true;
-    }
-
-    duplicateBlock(id) {
-
-        const source = this.getBlocks().find(
-            block => block.id === id
         );
 
-        if (!source) return null;
+        return this.document;
 
-        const copy = structuredClone(source);
-
-        copy.id = crypto.randomUUID();
-
-        this.addBlock(copy);
-
-        this.markModified();
-
-        this.emit("block:duplicate", copy);
-
-        return copy;
-    }
-
-    moveBlock(fromIndex, toIndex) {
-
-        const blocks = this.getBlocks();
-
-        if (
-            fromIndex < 0 ||
-            fromIndex >= blocks.length ||
-            toIndex < 0 ||
-            toIndex >= blocks.length
-        ) {
-            return false;
-        }
-
-        const [block] = blocks.splice(fromIndex, 1);
-
-        blocks.splice(toIndex, 0, block);
-
-        blocks.forEach((item, index) => {
-            item.order = index + 1;
-        });
-
-        this.markModified();
-
-        this.emit("block:move", {
-            from: fromIndex,
-            to: toIndex
-        });
-
-        return true;
-    }
-
-    setZoom(value) {
-
-        this.zoom = Math.max(25, Math.min(300, value));
-
-        this.emit("zoom:change", this.zoom);
-
-        return this;
-    }
-
-    getZoom() {
-        return this.zoom;
-    }
-
-    setPage(page) {
-
-        this.activePage = page;
-
-        this.emit("page:change", page);
-
-        return this;
-    }
-
-    getPage() {
-        return this.activePage;
     }
 
     save() {
 
-        this.documentState.modified = false;
+        const json = this.document.toJSON();
 
-        this.emit("document:saved", this.document);
+        this.app?.emit(
 
-        return super.save();
+            "document:saved",
+
+            json
+
+        );
+
+        return json;
+
     }
 
-    refresh() {
+    setContent(html) {
 
-        this.compose();
+        this.document.setContent(html);
 
-        this.render();
+        this.app?.emit(
 
-        this.emit("document:refresh");
+            "document:updated",
 
-        return this;
+            this.document
+
+        );
+
     }
 
-    export() {
-        return {
-            state: this.documentState,
-            activePage: this.activePage,
-            zoom: this.zoom,
-            activeBlock: this.activeBlock?.id || null,
-            document: this.document
-        };
+    getContent() {
+
+        return this.document.getContent();
+
     }
 
-    toJSON() {
-        return this.export();
+    getDocument() {
+
+        return this.document;
+
+    }
+
+    renderHTML() {
+
+        return this.document.getContent();
+
+    }
+
+    exportJSON() {
+
+        return this.document.toJSON();
+
+    }
+
+    importJSON(data) {
+
+        this.document.fromJSON(data);
+
+        this.app?.emit(
+
+            "document:updated",
+
+            this.document
+
+        );
+
     }
 
 }
