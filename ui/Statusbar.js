@@ -1,136 +1,166 @@
-```javascript
+```javascript id="b6rv9n"
 /**
  * Statusbar.js
+ * Academic Writing Composer
  * Application Status Bar
- * Version: 2.0.0
  */
 
 export default class Statusbar {
 
-    constructor(app = null) {
+    constructor(app) {
 
         this.app = app;
 
         this.element = null;
 
-        this.status = "Ready";
-
-        this.page = 1;
-
-        this.zoom = 100;
-
-        this.words = 0;
-
-        this.characters = 0;
-
         this.state = "CREATED";
+
+        this.documentStatus = "Ready";
+
+        this.wordCount = 0;
+
+        this.characterCount = 0;
 
     }
 
     render() {
 
-        const workspace = this.app?.workspace?.getRootElement();
+        if (this.element) {
 
-        if (!workspace) return this;
+            return this.element;
 
-        this.element = workspace.querySelector(".awc-statusbar");
+        }
 
-        if (!this.element) return this;
+        this.element = document.createElement("footer");
 
-        this.refresh();
+        this.element.className = "awc-statusbar";
+
+        this.renderContent();
+
+        this.bindEvents();
 
         this.state = "RENDERED";
 
-        return this;
+        return this.element;
 
     }
 
-    refresh() {
+    bindEvents() {
 
-        if (!this.element) return this;
+        this.app.on(
 
-        this.element.innerHTML = `
-            <div class="awc-status-left">
-                <span class="awc-status">${this.status}</span>
-            </div>
+            "document:changed",
 
-            <div class="awc-status-center">
-                <span>Page ${this.page}</span>
-                <span>${this.words} Words</span>
-                <span>${this.characters} Characters</span>
-            </div>
+            html => {
 
-            <div class="awc-status-right">
-                <span>${this.zoom}%</span>
-            </div>
-        `;
+                this.updateStatistics(html);
 
-        return this;
+            }
+
+        );
+
+        this.app.on(
+
+            "document:created",
+
+            () => {
+
+                this.setStatus("New Document");
+
+            }
+
+        );
+
+        this.app.on(
+
+            "document:save",
+
+            () => {
+
+                this.setStatus("Saved");
+
+            }
+
+        );
+
+        this.app.on(
+
+            "preview:open",
+
+            () => {
+
+                this.setStatus("Preview");
+
+            }
+
+        );
+
+    }
+
+    updateStatistics(html = "") {
+
+        const text = html
+            .replace(/<[^>]+>/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+
+        this.characterCount = text.length;
+
+        this.wordCount = text
+            ? text.split(" ").length
+            : 0;
+
+        this.setStatus("Editing");
+
+        this.renderContent();
 
     }
 
     setStatus(status) {
 
-        this.status = status;
+        this.documentStatus = status;
 
-        this.refresh();
-
-        return this;
+        this.renderContent();
 
     }
 
-    setPage(page) {
+    renderContent() {
 
-        this.page = page;
+        if (!this.element) return;
 
-        this.refresh();
+        this.element.innerHTML = `
+            <div class="awc-status-left">
+                <strong>${this.documentStatus}</strong>
+            </div>
 
-        return this;
+            <div class="awc-status-right">
 
-    }
+                <span>
+                    Words :
+                    ${this.wordCount}
+                </span>
 
-    setZoom(zoom) {
+                &nbsp;&nbsp;|&nbsp;&nbsp;
 
-        this.zoom = zoom;
+                <span>
+                    Characters :
+                    ${this.characterCount}
+                </span>
 
-        this.refresh();
-
-        return this;
-
-    }
-
-    updateStatistics(text = "") {
-
-        this.characters = text.length;
-
-        const words = text
-            .trim()
-            .split(/\s+/)
-            .filter(Boolean);
-
-        this.words = words.length;
-
-        this.refresh();
-
-        return this;
+            </div>
+        `;
 
     }
 
     reset() {
 
-        this.status = "Ready";
+        this.documentStatus = "Ready";
 
-        this.page = 1;
+        this.wordCount = 0;
 
-        this.zoom = 100;
+        this.characterCount = 0;
 
-        this.words = 0;
-
-        this.characters = 0;
-
-        this.refresh();
-
-        return this;
+        this.renderContent();
 
     }
 
@@ -143,19 +173,6 @@ export default class Statusbar {
     getState() {
 
         return this.state;
-
-    }
-
-    toJSON() {
-
-        return {
-            state: this.state,
-            status: this.status,
-            page: this.page,
-            zoom: this.zoom,
-            words: this.words,
-            characters: this.characters
-        };
 
     }
 
