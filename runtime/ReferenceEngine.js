@@ -1,4 +1,3 @@
-```javascript
 /**
  * ReferenceEngine.js
  * Automatic Reference Engine
@@ -182,4 +181,4 @@ export default class ReferenceEngine {
     }
 
 }
-```
+
