@@ -1,11 +1,4 @@
 ```javascript
-/**
- * App.js
- * Academic Writing Composer SPA
- * Main Application Controller
- * Version: 2.0.0
- */
-
 import Workspace from "./Workspace.js";
 import Toolbar from "./Toolbar.js";
 import Sidebar from "./Sidebar.js";
@@ -14,108 +7,83 @@ import Statusbar from "./Statusbar.js";
 
 export default class App {
 
-    constructor(options = {}) {
+    constructor() {
 
-        this.options = {
-            container: "#app",
-            theme: "light",
-            autosave: true,
-            ...options
-        };
+        this.root = document.getElementById("app");
 
-        this.workspace = null;
-        this.toolbar = null;
-        this.sidebar = null;
-        this.canvas = null;
-        this.statusbar = null;
-
-        this.state = "CREATED";
+        this.components = {};
 
         this.events = new Map();
 
     }
 
-    init() {
+    async init() {
 
-        this.workspace = new Workspace(this);
+        this.createLayout();
 
-        this.toolbar = new Toolbar(this);
+        this.mountComponents();
 
-        this.sidebar = new Sidebar(this);
-
-        this.canvas = new Canvas(this);
-
-        this.statusbar = new Statusbar(this);
-
-        this.workspace.mount(
-            this.options.container
-        );
-
-        this.toolbar.render();
-
-        this.sidebar.render();
-
-        this.canvas.render();
-
-        this.statusbar.render();
-
-        this.bindEvents();
-
-        this.state = "READY";
-
-        this.emit("ready");
-
-        return this;
+        this.emit("app:ready");
 
     }
 
-    bindEvents() {
+    createLayout() {
 
-        window.addEventListener("resize", () => {
+        this.root.innerHTML = `
+            <div class="awc-workspace">
 
-            this.emit("resize");
+                <header id="awc-toolbar"></header>
 
-        });
+                <main class="awc-main">
 
-    }
+                    <aside id="awc-sidebar"></aside>
 
-    render() {
+                    <section id="awc-canvas"></section>
 
-        this.workspace.render();
+                </main>
 
-        this.toolbar.render();
+                <footer id="awc-statusbar"></footer>
 
-        this.sidebar.render();
-
-        this.canvas.render();
-
-        this.statusbar.render();
-
-        return this;
+            </div>
+        `;
 
     }
 
-    refresh() {
+    mountComponents() {
 
-        this.render();
+        this.components.toolbar = new Toolbar(this);
 
-        this.emit("refresh");
+        this.components.sidebar = new Sidebar(this);
 
-        return this;
+        this.components.canvas = new Canvas(this);
 
-    }
+        this.components.statusbar = new Statusbar(this);
 
-    destroy() {
+        this.components.workspace = new Workspace(this);
 
-        this.emit("destroy");
+        document
+            .getElementById("awc-toolbar")
+            .appendChild(
+                this.components.toolbar.render()
+            );
 
-        this.workspace = null;
-        this.toolbar = null;
-        this.sidebar = null;
-        this.canvas = null;
-        this.statusbar = null;
+        document
+            .getElementById("awc-sidebar")
+            .appendChild(
+                this.components.sidebar.render()
+            );
 
-        this.state = "DESTROYED";
+        document
+            .getElementById("awc-canvas")
+            .appendChild(
+                this.components.canvas.render()
+            );
+
+        document
+            .getElementById("awc-statusbar")
+            .appendChild(
+                this.components.statusbar.render()
+            );
 
     }
 
@@ -129,23 +97,6 @@ export default class App {
 
         this.events.get(event).push(callback);
 
-        return this;
-
-    }
-
-    off(event, callback) {
-
-        if (!this.events.has(event)) return this;
-
-        this.events.set(
-            event,
-            this.events
-                .get(event)
-                .filter(fn => fn !== callback)
-        );
-
-        return this;
-
     }
 
     emit(event, payload = null) {
@@ -154,53 +105,13 @@ export default class App {
 
         this.events
             .get(event)
-            .forEach(fn => fn(payload));
+            .forEach(callback => callback(payload));
 
     }
 
-    getWorkspace() {
+    get(name) {
 
-        return this.workspace;
-
-    }
-
-    getToolbar() {
-
-        return this.toolbar;
-
-    }
-
-    getSidebar() {
-
-        return this.sidebar;
-
-    }
-
-    getCanvas() {
-
-        return this.canvas;
-
-    }
-
-    getStatusbar() {
-
-        return this.statusbar;
-
-    }
-
-    getState() {
-
-        return this.state;
-
-    }
-
-    toJSON() {
-
-        return {
-            state: this.state,
-            theme: this.options.theme,
-            autosave: this.options.autosave
-        };
+        return this.components[name];
 
     }
 
