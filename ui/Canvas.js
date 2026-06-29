@@ -1,4 +1,3 @@
-
 /**
  * Canvas.js
  * Integrated with DocumentEditor
