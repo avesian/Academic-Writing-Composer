@@ -1,4 +1,3 @@
-```javascript
 /**
  * Clipboard.js
  * Internal Clipboard
@@ -44,4 +43,4 @@ export default class Clipboard {
     }
 
 }
-```
+
