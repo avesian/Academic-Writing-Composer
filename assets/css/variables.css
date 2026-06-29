@@ -1,1 +1,105 @@
+```css id="v3pk8n"
+/* ==========================================================
+   Academic Writing Composer
+   variables.css
+   ========================================================== */
+
+:root{
+
+    /* Brand */
+
+    --awc-primary:#2563eb;
+    --awc-primary-hover:#1d4ed8;
+    --awc-secondary:#64748b;
+    --awc-accent:#0ea5e9;
+
+    /* Status */
+
+    --awc-success:#16a34a;
+    --awc-warning:#f59e0b;
+    --awc-danger:#dc2626;
+    --awc-info:#0284c7;
+
+    /* Background */
+
+    --awc-background:#f5f7fb;
+    --awc-surface:#ffffff;
+    --awc-surface-alt:#f8fafc;
+
+    /* Text */
+
+    --awc-text:#1f2937;
+    --awc-text-secondary:#6b7280;
+    --awc-text-muted:#9ca3af;
+
+    /* Border */
+
+    --awc-border:#e5e7eb;
+    --awc-border-dark:#cbd5e1;
+
+    /* Shadow */
+
+    --awc-shadow-sm:0 1px 3px rgba(0,0,0,.08);
+    --awc-shadow-md:0 4px 12px rgba(0,0,0,.10);
+    --awc-shadow-lg:0 10px 30px rgba(0,0,0,.15);
+
+    /* Radius */
+
+    --awc-radius-sm:4px;
+    --awc-radius:8px;
+    --awc-radius-lg:12px;
+    --awc-radius-xl:16px;
+
+    /* Spacing */
+
+    --awc-space-xs:4px;
+    --awc-space-sm:8px;
+    --awc-space-md:16px;
+    --awc-space-lg:24px;
+    --awc-space-xl:32px;
+
+    /* Typography */
+
+    --awc-font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    --awc-font-size-xs:12px;
+    --awc-font-size-sm:14px;
+    --awc-font-size-md:16px;
+    --awc-font-size-lg:20px;
+    --awc-font-size-xl:24px;
+
+    /* Layout */
+
+    --awc-toolbar-height:56px;
+    --awc-statusbar-height:32px;
+    --awc-sidebar-width:280px;
+    --awc-sidebar-collapse-width:72px;
+
+    /* Page */
+
+    --awc-page-width:210mm;
+    --awc-page-height:297mm;
+    --awc-page-padding:25mm;
+
+    /* Transition */
+
+    --awc-transition-fast:.15s ease;
+    --awc-transition:.25s ease;
+    --awc-transition-slow:.4s ease;
+
+    /* Z-Index */
+
+    --awc-z-dropdown:1000;
+    --awc-z-modal:2000;
+    --awc-z-toast:3000;
+    --awc-z-loading:9999;
+
+}
+```
 
