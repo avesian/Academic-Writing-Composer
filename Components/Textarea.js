@@ -1,4 +1,3 @@
-```javascript
 /**
  * Textarea.js
  * Reusable Textarea Component
@@ -206,4 +205,3 @@ export default class Textarea {
     }
 
 }
-```
