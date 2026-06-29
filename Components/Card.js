@@ -1,4 +1,3 @@
-```javascript id="n5rk8v"
 /**
  * Card.js
  * Reusable Card Component
@@ -151,4 +150,4 @@ export default class Card {
     }
 
 }
-```
+
