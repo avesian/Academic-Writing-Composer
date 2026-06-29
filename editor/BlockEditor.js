@@ -1,4 +1,3 @@
-```javascript
 /**
  * BlockEditor.js
  * Academic Block Editor
@@ -225,4 +224,4 @@ export default class BlockEditor {
     }
 
 }
-```
+
