@@ -1,4 +1,3 @@
-```javascript id="m8q4xn"
 /**
  * Select.js
  * Reusable Select Component
@@ -208,4 +207,4 @@ export default class Select {
     }
 
 }
-```
+
