@@ -1,4 +1,3 @@
-```javascript id="x9rq7m"
 /**
  * Router.js
  * Simple SPA Router
@@ -152,4 +151,4 @@ export default class Router {
     }
 
 }
-```
+
