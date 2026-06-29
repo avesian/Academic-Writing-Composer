@@ -1,13 +1,13 @@
-```javascript
+```javascript id="k7qx2v"
 /**
  * Canvas.js
+ * Academic Writing Composer
  * Document Canvas
- * Version: 2.0.0
  */
 
 export default class Canvas {
 
-    constructor(app = null) {
+    constructor(app) {
 
         this.app = app;
 
@@ -15,9 +15,7 @@ export default class Canvas {
 
         this.page = null;
 
-        this.scale = 1;
-
-        this.document = null;
+        this.editor = null;
 
         this.state = "CREATED";
 
@@ -25,131 +23,116 @@ export default class Canvas {
 
     render() {
 
-        const workspace = this.app?.workspace?.getRootElement();
+        if (this.element) {
 
-        if (!workspace) return this;
+            return this.element;
 
-        this.element = workspace.querySelector(".awc-canvas");
+        }
 
-        if (!this.element) return this;
+        this.element = document.createElement("section");
 
-        this.element.innerHTML = "";
+        this.element.className = "awc-canvas";
 
         this.page = document.createElement("div");
 
         this.page.className = "awc-page";
 
-        this.page.innerHTML = `
-            <div class="awc-page-content"></div>
+        this.editor = document.createElement("div");
+
+        this.editor.className = "awc-editor";
+
+        this.editor.contentEditable = "true";
+
+        this.editor.spellcheck = false;
+
+        this.editor.innerHTML = `
+            <h1>Academic Writing Composer</h1>
+
+            <p>
+                Mulai menulis dokumen Anda di sini...
+            </p>
         `;
+
+        this.page.appendChild(this.editor);
 
         this.element.appendChild(this.page);
 
+        this.bindEvents();
+
         this.state = "RENDERED";
 
-        return this;
+        return this.element;
 
     }
 
-    setDocument(document) {
+    bindEvents() {
 
-        this.document = document;
+        this.editor.addEventListener("input", () => {
 
-        this.refresh();
-
-        return this;
-
-    }
-
-    refresh() {
-
-        if (!this.page) return this;
-
-        const content = this.page.querySelector(
-            ".awc-page-content"
-        );
-
-        content.innerHTML = "";
-
-        if (!this.document) return this;
-
-        const blocks = this.document.getBlocks
-            ? this.document.getBlocks()
-            : [];
-
-        blocks.forEach(block => {
-
-            const node = document.createElement("section");
-
-            node.className = "awc-block";
-
-            node.dataset.id = block.id ?? "";
-
-            node.innerHTML = `
-                <div class="awc-block-title">
-                    ${block.title ?? block.type ?? "Block"}
-                </div>
-            `;
-
-            content.appendChild(node);
+            this.app.emit(
+                "document:changed",
+                this.getContent()
+            );
 
         });
 
-        return this;
+        this.app.on(
 
-    }
+            "document:new",
 
-    zoom(value) {
+            () => this.newDocument()
 
-        this.scale = Math.max(0.5, Math.min(3, value));
-
-        if (this.page) {
-
-            this.page.style.transform =
-                `scale(${this.scale})`;
-
-            this.page.style.transformOrigin =
-                "top center";
-
-        }
-
-        this.app?.emit("canvas:zoom", this.scale);
-
-        return this;
-
-    }
-
-    resetZoom() {
-
-        return this.zoom(1);
-
-    }
-
-    clear() {
-
-        if (!this.page) return this;
-
-        const content = this.page.querySelector(
-            ".awc-page-content"
         );
 
-        content.innerHTML = "";
+        this.app.on(
 
-        return this;
+            "document:set",
+
+            content => this.setContent(content)
+
+        );
+
+    }
+
+    newDocument() {
+
+        this.editor.innerHTML = `
+            <h1>Untitled Document</h1>
+
+            <p></p>
+        `;
+
+        this.app.emit("document:created");
+
+    }
+
+    setContent(content = "") {
+
+        this.editor.innerHTML = content;
+
+    }
+
+    getContent() {
+
+        return this.editor.innerHTML;
 
     }
 
     focus() {
 
-        this.element?.focus();
-
-        return this;
+        this.editor.focus();
 
     }
 
-    getElement() {
+    clear() {
 
-        return this.element;
+        this.editor.innerHTML = "";
+
+    }
+
+    getEditor() {
+
+        return this.editor;
 
     }
 
@@ -159,25 +142,15 @@ export default class Canvas {
 
     }
 
-    getScale() {
+    getElement() {
 
-        return this.scale;
+        return this.element;
 
     }
 
     getState() {
 
         return this.state;
-
-    }
-
-    toJSON() {
-
-        return {
-            state: this.state,
-            scale: this.scale,
-            hasDocument: !!this.document
-        };
 
     }
 
