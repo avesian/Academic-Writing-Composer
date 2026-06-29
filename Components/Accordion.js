@@ -1,4 +1,3 @@
-```javascript id="a4n8kp"
 /**
  * Accordion.js
  * Reusable Accordion Component
@@ -174,4 +173,3 @@ export default class Accordion {
     }
 
 }
-```
