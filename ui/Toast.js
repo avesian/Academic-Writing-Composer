@@ -1,4 +1,3 @@
-```javascript id="s7v4mk"
 /**
  * Toast.js
  * Notification Toast Component
@@ -151,4 +150,4 @@ export default class Toast {
     }
 
 }
-```
+
