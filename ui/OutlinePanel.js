@@ -1,4 +1,3 @@
-```javascript
 /**
  * OutlinePanel.js
  * Document Outline Navigation
@@ -188,4 +187,4 @@ export default class OutlinePanel {
     }
 
 }
-```
+
