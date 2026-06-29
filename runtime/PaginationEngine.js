@@ -1,4 +1,3 @@
-```javascript
 /**
  * PaginationEngine.js
  * Automatic Pagination Engine
@@ -161,4 +160,4 @@ export default class PaginationEngine {
         };
     }
 }
-```
+
