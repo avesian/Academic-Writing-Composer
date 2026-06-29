@@ -1,4 +1,3 @@
-```javascript
 /**
  * Dialog.js
  * Confirmation Dialog Component
@@ -127,4 +126,4 @@ export default class Dialog extends Modal {
     }
 
 }
-```
+
