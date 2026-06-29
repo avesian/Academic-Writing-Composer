@@ -1,239 +1,171 @@
+```javascript
 /**
  * AcademicDocument.js
- * Core Document Model
- * Version: 1.0.0
+ * Integrated with Block Registry
  */
 
+import BlockFactory from "../blocks/BlockFactory.js";
+import BlockRegistry from "../registry/BlockRegistry.js";
+
 export default class AcademicDocument {
+
     constructor() {
-        this.id = this.generateId();
-        this.version = "1.0.0";
-        this.state = "NEW";
-        this.createdAt = new Date();
-        this.updatedAt = new Date();
 
-        this.metadata = {
-            title: "",
-            subtitle: "",
-            author: "",
-            nim: "",
-            studyProgram: "",
-            faculty: "",
-            university: "",
-            degree: "",
-            year: new Date().getFullYear(),
-            city: "",
-            language: "id"
-        };
+        this.registry = new BlockRegistry();
 
-        this.institution = {
-            id: "",
-            name: "",
-            template: ""
-        };
-
-        this.settings = {
-            paperSize: "A4",
-            orientation: "portrait",
-
-            margin: {
-                top: 3,
-                right: 3,
-                bottom: 3,
-                left: 4
-            },
-
-            typography: {
-                fontFamily: "Times New Roman",
-                fontSize: 12,
-                lineSpacing: 2,
-                paragraphSpacing: 0
-            }
-        };
+        this.factory = new BlockFactory();
 
         this.blocks = [];
 
-        this.assets = {
-            logo: null,
-            signatures: [],
-            images: []
+        this.metadata = {
+
+            title: "Untitled Document",
+
+            author: "",
+
+            createdAt: new Date(),
+
+            updatedAt: new Date()
+
         };
 
-        this.statistics = {
-            pageCount: 0,
-            wordCount: 0,
-            figureCount: 0,
-            tableCount: 0,
-            referenceCount: 0
-        };
+        this.addBlock("paragraph");
 
-        this.logs = [];
     }
 
-    /* ======================================================
-       Metadata
-    ====================================================== */
+    addBlock(type, data = {}) {
 
-    setMetadata(data = {}) {
-        Object.assign(this.metadata, data);
-        this.touch();
-    }
+        const block = this.factory.create(type, data);
 
-    getMetadata() {
-        return this.metadata;
-    }
+        if (!block) {
 
-    /* ======================================================
-       Institution
-    ====================================================== */
+            throw new Error(`Unknown block type: ${type}`);
 
-    setInstitution(data = {}) {
-        Object.assign(this.institution, data);
-        this.touch();
-    }
+        }
 
-    getInstitution() {
-        return this.institution;
-    }
+        this.registry.register(block);
 
-    /* ======================================================
-       Settings
-    ====================================================== */
-
-    setSettings(data = {}) {
-        this.settings = {
-            ...this.settings,
-            ...data
-        };
-
-        this.touch();
-    }
-
-    getSettings() {
-        return this.settings;
-    }
-
-    /* ======================================================
-       Blocks
-    ====================================================== */
-
-    addBlock(block) {
         this.blocks.push(block);
-        this.sortBlocks();
+
         this.touch();
+
+        return block;
+
     }
 
     removeBlock(id) {
-        this.blocks = this.blocks.filter(block => block.id !== id);
+
+        this.blocks = this.blocks.filter(
+
+            block => block.id !== id
+
+        );
+
+        this.registry.unregister(id);
+
         this.touch();
+
     }
 
     getBlock(id) {
-        return this.blocks.find(block => block.id === id);
+
+        return this.blocks.find(
+
+            block => block.id === id
+
+        );
+
     }
 
     getBlocks() {
+
         return this.blocks;
+
     }
 
-    clearBlocks() {
+    clear() {
+
         this.blocks = [];
+
+        this.registry.clear();
+
+        this.addBlock("paragraph");
+
+    }
+
+    setContent(html) {
+
+        if (this.blocks.length === 0) {
+
+            this.addBlock("paragraph");
+
+        }
+
+        this.blocks[0].content = html;
+
         this.touch();
+
     }
 
-    sortBlocks() {
-        this.blocks.sort((a, b) => a.order - b.order);
+    getContent() {
+
+        return this.blocks
+
+            .map(block => block.render())
+
+            .join("");
+
     }
-
-    /* ======================================================
-       Statistics
-    ====================================================== */
-
-    updateStatistics(data = {}) {
-        Object.assign(this.statistics, data);
-        this.touch();
-    }
-
-    getStatistics() {
-        return this.statistics;
-    }
-
-    /* ======================================================
-       State
-    ====================================================== */
-
-    setState(state) {
-        this.state = state;
-        this.touch();
-    }
-
-    getState() {
-        return this.state;
-    }
-
-    /* ======================================================
-       Logs
-    ====================================================== */
-
-    addLog(level, message, source = "CORE") {
-        this.logs.push({
-            timestamp: new Date(),
-            level,
-            source,
-            message
-        });
-    }
-
-    getLogs() {
-        return this.logs;
-    }
-
-    clearLogs() {
-        this.logs = [];
-    }
-
-    /* ======================================================
-       Helpers
-    ====================================================== */
 
     touch() {
-        this.updatedAt = new Date();
-    }
 
-    generateId() {
-        return "DOC-" + Date.now() + "-" + Math.random().toString(36).substring(2, 8);
-    }
+        this.metadata.updatedAt = new Date();
 
-    /* ======================================================
-       Serialization
-    ====================================================== */
+    }
 
     toJSON() {
+
         return {
-            id: this.id,
-            version: this.version,
-            state: this.state,
 
             metadata: this.metadata,
-            institution: this.institution,
-            settings: this.settings,
 
-            blocks: this.blocks,
+            blocks: this.blocks.map(
 
-            assets: this.assets,
-            statistics: this.statistics,
-            logs: this.logs,
+                block => block.toJSON()
 
-            createdAt: this.createdAt,
-            updatedAt: this.updatedAt
+            )
+
         };
+
     }
 
-    static fromJSON(data) {
-        const document = new AcademicDocument();
+    fromJSON(data) {
 
-        Object.assign(document, data);
+        this.clear();
 
-        return document;
+        this.metadata = data.metadata;
+
+        this.blocks = [];
+
+        this.registry.clear();
+
+        data.blocks.forEach(item => {
+
+            const block = this.factory.create(
+
+                item.type,
+
+                item
+
+            );
+
+            this.registry.register(block);
+
+            this.blocks.push(block);
+
+        });
+
     }
+
 }
+```
