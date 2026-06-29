@@ -1,4 +1,3 @@
-```javascript
 /**
  * CaptionEngine.js
  * Automatic Caption Engine
@@ -141,4 +140,4 @@ export default class CaptionEngine {
     }
 
 }
-```
+
