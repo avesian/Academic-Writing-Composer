@@ -1,4 +1,3 @@
-```javascript
 /**
  * PropertiesPanel.js
  * Block Properties Inspector
@@ -202,4 +201,3 @@ export default class PropertiesPanel {
     }
 
 }
-```
