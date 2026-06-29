@@ -1,4 +1,3 @@
-```javascript
 /**
  * Modal.js
  * Reusable Modal Component
@@ -200,4 +199,4 @@ export default class Modal {
     }
 
 }
-```
+
