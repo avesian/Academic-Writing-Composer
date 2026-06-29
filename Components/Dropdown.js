@@ -1,4 +1,3 @@
-```javascript id="m4pz7k"
 /**
  * Dropdown.js
  * Reusable Dropdown Component
@@ -200,4 +199,4 @@ export default class Dropdown {
     }
 
 }
-```
+
