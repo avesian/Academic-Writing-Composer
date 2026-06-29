@@ -1,4 +1,3 @@
-```javascript
 /**
  * NumberingEngine.js
  * Automatic Numbering Engine
@@ -224,4 +223,4 @@ export default class NumberingEngine {
     }
 
 }
-```
+
