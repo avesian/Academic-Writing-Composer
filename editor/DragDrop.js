@@ -1,4 +1,3 @@
-```javascript
 /**
  * DragDrop.js
  * Drag & Drop Manager
@@ -77,4 +76,4 @@ export default class DragDrop {
     }
 
 }
-```
+
