@@ -1,22 +1,136 @@
-try {
+```html
+<!DOCTYPE html>
+<html lang="id">
 
-    const app = new App();
+<head>
 
-    console.log("1. App created");
+    <meta charset="UTF-8">
 
-    await app.init();
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    console.log("2. App initialized");
+    <meta
+        name="description"
+        content="Academic Writing Composer"
+    >
 
-    window.AWC = app;
+    <meta
+        name="theme-color"
+        content="#2563eb"
+    >
 
-    document.getElementById("loading-screen")?.remove();
+    <title>Academic Writing Composer</title>
 
-}
-catch(error){
+    <link
+        rel="stylesheet"
+        href="./assets/css/reset.css"
+    >
 
-    console.error(error);
+    <link
+        rel="stylesheet"
+        href="./assets/css/variables.css"
+    >
 
-    alert(error.stack);
+    <link
+        rel="stylesheet"
+        href="./assets/css/layout.css"
+    >
 
-}
+    <link
+        rel="stylesheet"
+        href="./assets/css/components.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="./assets/css/editor.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="./assets/css/app.css"
+    >
+
+</head>
+
+<body>
+
+    <div id="loading-screen">
+
+        <h1>Academic Writing Composer</h1>
+
+        <p>Loading...</p>
+
+    </div>
+
+    <div id="app"></div>
+
+    <noscript>
+
+        JavaScript harus diaktifkan.
+
+    </noscript>
+
+    <script type="module">
+
+        import App from "./ui/App.js";
+
+        async function bootstrap() {
+
+            console.log("STEP 1 : bootstrap()");
+
+            try {
+
+                console.log("STEP 2 : new App()");
+
+                const app = new App();
+
+                window.AWC = app;
+
+                console.log("STEP 3 : app.init()");
+
+                await app.init();
+
+                console.log("STEP 4 : remove loading");
+
+                document
+                    .getElementById("loading-screen")
+                    ?.remove();
+
+                console.log("STEP 5 : DONE");
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+                console.error(error.stack);
+
+                document.body.innerHTML = `
+                    <div style="
+                        padding:40px;
+                        font-family:monospace;
+                        white-space:pre-wrap;
+                        color:#b00020;
+                    ">
+<h2>Application Error</h2>
+
+${error.stack}
+                    </div>
+                `;
+
+            }
+
+        }
+
+        bootstrap();
+
+    </script>
+
+</body>
+
+</html>
+```
