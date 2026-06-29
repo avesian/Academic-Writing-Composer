@@ -1,1 +1,171 @@
+```css id="l8qy2m"
+/* ==========================================================
+   Academic Writing Composer
+   layout.css
+   ========================================================== */
+
+:root{
+    --toolbar-height:56px;
+    --statusbar-height:32px;
+    --sidebar-width:280px;
+    --sidebar-width-collapsed:72px;
+    --page-width:210mm;
+    --page-height:297mm;
+}
+
+/* Root */
+
+#app{
+    display:grid;
+    grid-template-rows:
+        var(--toolbar-height)
+        1fr
+        var(--statusbar-height);
+    grid-template-columns:100%;
+    width:100%;
+    height:100vh;
+    overflow:hidden;
+}
+
+/* Toolbar */
+
+.awc-toolbar{
+    grid-row:1;
+    width:100%;
+    z-index:100;
+}
+
+/* Main Layout */
+
+.awc-main{
+    grid-row:2;
+    display:grid;
+    grid-template-columns:
+        var(--sidebar-width)
+        1fr;
+    overflow:hidden;
+}
+
+/* Sidebar */
+
+.awc-sidebar{
+    overflow:auto;
+    background:#f8fafc;
+}
+
+/* Canvas */
+
+.awc-canvas{
+    overflow:auto;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    padding:32px;
+}
+
+/* Page Container */
+
+.awc-page-container{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:32px;
+    width:100%;
+}
+
+/* A4 Page */
+
+.awc-page{
+    width:var(--page-width);
+    min-height:var(--page-height);
+    background:#ffffff;
+    position:relative;
+}
+
+/* Statusbar */
+
+.awc-statusbar{
+    grid-row:3;
+    width:100%;
+}
+
+/* Split Layout */
+
+.awc-horizontal{
+    display:flex;
+    flex-direction:row;
+}
+
+.awc-vertical{
+    display:flex;
+    flex-direction:column;
+}
+
+.awc-fill{
+    flex:1;
+}
+
+.awc-hidden{
+    display:none !important;
+}
+
+.awc-collapse-sidebar{
+
+    grid-template-columns:
+        var(--sidebar-width-collapsed)
+        1fr;
+
+}
+
+/* Responsive */
+
+@media (max-width:1024px){
+
+    :root{
+
+        --sidebar-width:240px;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    #app{
+
+        grid-template-rows:
+            var(--toolbar-height)
+            1fr
+            var(--statusbar-height);
+
+    }
+
+    .awc-main{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .awc-sidebar{
+
+        display:none;
+
+    }
+
+    .awc-canvas{
+
+        padding:16px;
+
+    }
+
+    .awc-page{
+
+        width:100%;
+        max-width:210mm;
+
+    }
+
+}
+```
 
