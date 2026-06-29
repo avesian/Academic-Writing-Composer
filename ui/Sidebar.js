@@ -1,4 +1,3 @@
-```javascript id="s4mn8x"
 /**
  * Sidebar.js
  * Academic Writing Composer
@@ -155,4 +154,4 @@ export default class Sidebar {
     }
 
 }
-```
+
