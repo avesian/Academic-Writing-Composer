@@ -1,4 +1,3 @@
-```javascript id="b6rv9n"
 /**
  * Statusbar.js
  * Academic Writing Composer
@@ -177,4 +176,4 @@ export default class Statusbar {
     }
 
 }
-```
+
