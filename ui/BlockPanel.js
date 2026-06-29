@@ -1,4 +1,4 @@
-```javascript
+
 /**
  * BlockPanel.js
  * Available Block Panel
@@ -163,4 +163,3 @@ export default class BlockPanel {
     }
 
 }
-```
