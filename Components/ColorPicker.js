@@ -1,4 +1,3 @@
-```javascript id="p8n4zk"
 /**
  * ColorPicker.js
  * Reusable Color Picker Component
@@ -204,4 +203,4 @@ export default class ColorPicker {
     }
 
 }
-```
+
