@@ -1,4 +1,3 @@
-```javascript id="k4x8pm"
 /**
  * Settings.js
  * Application Settings Manager
@@ -168,4 +167,4 @@ export default class Settings {
     }
 
 }
-```
+
