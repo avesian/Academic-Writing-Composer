@@ -1,4 +1,3 @@
-```javascript
 /**
  * Toolbar.js
  * Academic Writing Composer
@@ -119,4 +118,4 @@ export default class Toolbar {
     }
 
 }
-```
+
