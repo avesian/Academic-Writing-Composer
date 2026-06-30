@@ -1,5 +1,6 @@
 import Workspace from "./Workspace.js";
 import Toolbar from "./Toolbar.js";
+import Sidebar from "./Sidebar.js";
 
 export default class App {
 
@@ -12,10 +13,14 @@ export default class App {
         root.appendChild(workspace.render());
 
         const toolbar = new Toolbar(this);
-
         workspace
             .getToolbarContainer()
             .appendChild(toolbar.render());
+
+        const sidebar = new Sidebar(this);
+        workspace
+            .getSidebarContainer()
+            .appendChild(sidebar.render());
 
     }
 
