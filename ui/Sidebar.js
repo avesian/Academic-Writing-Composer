@@ -1,4 +1,3 @@
-/**
  * Sidebar.js
  * Academic Writing Composer
  * Sidebar Container
