@@ -1,8 +1,9 @@
 /**
  * AcademicDocument.js
- * Integrated with Block Registry
+ * Academic Writing Composer
  */
 
+import DocumentMetadata from "./DocumentMetadata.js";
 import BlockFactory from "./BlockFactory.js";
 import BlockRegistry from "./BlockRegistry.js";
 
@@ -10,23 +11,13 @@ export default class AcademicDocument {
 
     constructor() {
 
+        this.metadata = new DocumentMetadata();
+
         this.registry = new BlockRegistry();
 
         this.factory = new BlockFactory();
 
         this.blocks = [];
-
-        this.metadata = {
-
-            title: "Untitled Document",
-
-            author: "",
-
-            createdAt: new Date(),
-
-            updatedAt: new Date()
-
-        };
 
         this.addBlock("paragraph");
 
@@ -35,12 +26,6 @@ export default class AcademicDocument {
     addBlock(type, data = {}) {
 
         const block = this.factory.create(type, data);
-
-        if (!block) {
-
-            throw new Error(`Unknown block type: ${type}`);
-
-        }
 
         this.registry.register(block);
 
@@ -90,6 +75,8 @@ export default class AcademicDocument {
 
         this.addBlock("paragraph");
 
+        this.touch();
+
     }
 
     setContent(html) {
@@ -100,7 +87,7 @@ export default class AcademicDocument {
 
         }
 
-        this.blocks[0].content = html;
+        this.blocks[0].setContent(html);
 
         this.touch();
 
@@ -116,6 +103,20 @@ export default class AcademicDocument {
 
     }
 
+    setMetadata(data = {}) {
+
+        this.metadata.update(data);
+
+        return this;
+
+    }
+
+    getMetadata() {
+
+        return this.metadata;
+
+    }
+
     touch() {
 
         this.metadata.updatedAt = new Date();
@@ -126,7 +127,7 @@ export default class AcademicDocument {
 
         return {
 
-            metadata: this.metadata,
+            metadata: this.metadata.toJSON(),
 
             blocks: this.blocks.map(
 
@@ -140,15 +141,17 @@ export default class AcademicDocument {
 
     fromJSON(data) {
 
-        this.clear();
+        this.metadata = new DocumentMetadata(
 
-        this.metadata = data.metadata;
+            data.metadata || {}
+
+        );
 
         this.blocks = [];
 
         this.registry.clear();
 
-        data.blocks.forEach(item => {
+        (data.blocks || []).forEach(item => {
 
             const block = this.factory.create(
 
@@ -167,4 +170,3 @@ export default class AcademicDocument {
     }
 
 }
-
