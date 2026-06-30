@@ -1,90 +1,64 @@
+```javascript
 /**
  * BlockRegistry.js
- * Block Registry
- * Version: 1.0.0
+ * Academic Writing Composer
  */
 
 export default class BlockRegistry {
+
     constructor() {
+
         this.blocks = new Map();
+
     }
 
-    /**
-     * Register Block Class
-     */
-    register(BlockClass) {
-        const instance = new BlockClass();
+    register(block) {
 
-        if (!instance.type) {
-            throw new Error("Block must define a type.");
+        if (!block || !block.id) {
+            throw new Error("Invalid block instance.");
         }
 
-        this.blocks.set(instance.type, BlockClass);
+        this.blocks.set(block.id, block);
 
-        return this;
+        return block;
+
     }
 
-    /**
-     * Unregister Block
-     */
-    unregister(type) {
-        this.blocks.delete(type);
-        return this;
+    unregister(id) {
+
+        this.blocks.delete(id);
+
     }
 
-    /**
-     * Create Block Instance
-     */
-    create(type, options = {}) {
-        const BlockClass = this.blocks.get(type);
+    get(id) {
 
-        if (!BlockClass) {
-            throw new Error(`Block "${type}" is not registered.`);
-        }
+        return this.blocks.get(id) ?? null;
 
-        return new BlockClass(options);
     }
 
-    /**
-     * Check Registration
-     */
-    has(type) {
-        return this.blocks.has(type);
+    has(id) {
+
+        return this.blocks.has(id);
+
     }
 
-    /**
-     * Get Block Class
-     */
-    get(type) {
-        return this.blocks.get(type) || null;
-    }
-
-    /**
-     * Get All Registered Types
-     */
-    types() {
-        return [...this.blocks.keys()];
-    }
-
-    /**
-     * Get All Block Classes
-     */
     all() {
+
         return [...this.blocks.values()];
+
     }
 
-    /**
-     * Count
-     */
-    count() {
-        return this.blocks.size;
-    }
-
-    /**
-     * Clear Registry
-     */
     clear() {
+
         this.blocks.clear();
-        return this;
+
     }
+
+    count() {
+
+        return this.blocks.size;
+
+    }
+
 }
+```
