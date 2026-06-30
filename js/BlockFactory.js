@@ -3,42 +3,12 @@
  * Academic Writing Composer
  */
 
-class ParagraphBlock {
-
-    constructor(data = {}) {
-
-        this.id =
-            data.id ??
-            crypto.randomUUID();
-
-        this.type = "paragraph";
-
-        this.content =
-            data.content ?? "";
-
-    }
-
-    render() {
-
-        return `<p>${this.content}</p>`;
-
-    }
-
-    toJSON() {
-
-        return {
-
-            id: this.id,
-
-            type: this.type,
-
-            content: this.content
-
-        };
-
-    }
-
-}
+import ParagraphBlock from "./blocks/ParagraphBlock.js";
+import HeadingBlock from "./blocks/HeadingBlock.js";
+import ChapterBlock from "./blocks/ChapterBlock.js";
+import TitleBlock from "./blocks/TitleBlock.js";
+import FigureBlock from "./blocks/FigureBlock.js";
+import TableBlock from "./blocks/TableBlock.js";
 
 export default class BlockFactory {
 
@@ -46,10 +16,12 @@ export default class BlockFactory {
 
         this.types = new Map();
 
-        this.register(
-            "paragraph",
-            ParagraphBlock
-        );
+        this.register("paragraph", ParagraphBlock);
+        this.register("heading", HeadingBlock);
+        this.register("chapter", ChapterBlock);
+        this.register("title", TitleBlock);
+        this.register("figure", FigureBlock);
+        this.register("table", TableBlock);
 
     }
 
@@ -73,14 +45,11 @@ export default class BlockFactory {
 
     create(type, data = {}) {
 
-        const BlockClass =
-            this.types.get(type);
+        const BlockClass = this.types.get(type);
 
         if (!BlockClass) {
 
-            throw new Error(
-                `Unknown block type: ${type}`
-            );
+            throw new Error(`Unknown block type: ${type}`);
 
         }
 
@@ -89,4 +58,3 @@ export default class BlockFactory {
     }
 
 }
-
