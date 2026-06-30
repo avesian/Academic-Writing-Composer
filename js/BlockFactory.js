@@ -1,4 +1,3 @@
-```javascript
 /**
  * BlockFactory.js
  * Academic Writing Composer
@@ -90,4 +89,4 @@ export default class BlockFactory {
     }
 
 }
-```
+
