@@ -1,6 +1,7 @@
+```javascript
 /**
  * Canvas.js
- * Integrated with DocumentEditor
+ * Academic Writing Composer
  */
 
 import DocumentEditor from "../editor/DocumentEditor.js";
@@ -26,36 +27,30 @@ export default class Canvas {
     render() {
 
         if (this.element) {
-
             return this.element;
-
         }
 
         this.element = document.createElement("section");
-
         this.element.className = "awc-canvas";
 
         this.page = document.createElement("div");
-
         this.page.className = "awc-page";
 
         this.editor = document.createElement("div");
-
         this.editor.className = "awc-editor";
-
         this.editor.contentEditable = true;
-
         this.editor.spellcheck = false;
 
         this.page.appendChild(this.editor);
-
         this.element.appendChild(this.page);
 
         this.documentEditor = new DocumentEditor(this.app);
 
         this.bindEvents();
 
-        this.documentEditor.newDocument();
+        if (typeof this.documentEditor.newDocument === "function") {
+            this.documentEditor.newDocument();
+        }
 
         this.refresh();
 
@@ -69,18 +64,15 @@ export default class Canvas {
 
         this.editor.addEventListener("input", () => {
 
-            this.documentEditor.setContent(
+            if (!this.documentEditor) {
+                return;
+            }
 
-                this.editor.innerHTML
-
-            );
+            this.documentEditor.setContent(this.editor.innerHTML);
 
             this.app.emit(
-
                 "document:changed",
-
                 this.documentEditor.getDocument()
-
             );
 
         });
@@ -117,9 +109,16 @@ export default class Canvas {
 
     refresh() {
 
-        this.editor.innerHTML =
+        if (!this.documentEditor) {
+            return;
+        }
 
-            this.documentEditor.renderHTML();
+        if (typeof this.documentEditor.renderHTML === "function") {
+
+            this.editor.innerHTML =
+                this.documentEditor.renderHTML();
+
+        }
 
     }
 
@@ -137,7 +136,7 @@ export default class Canvas {
 
     getContent() {
 
-        return this.documentEditor.getDocument();
+        return this.documentEditor?.getDocument() ?? null;
 
     }
 
@@ -148,4 +147,4 @@ export default class Canvas {
     }
 
 }
-
+```
