@@ -16,18 +16,11 @@ export default class FigureBlock extends BaseBlock {
 
         this.caption = data.caption || "";
 
-        this.width = data.width || "100%";
-
     }
 
     render() {
 
-        return (
-            '<figure class="awc-figure">' +
-                '<img src="' + this.src + '" alt="' + this.caption + '" style="width:' + this.width + ';">' +
-                '<figcaption>' + this.caption + '</figcaption>' +
-            '</figure>'
-        );
+        return "";
 
     }
 
@@ -39,9 +32,7 @@ export default class FigureBlock extends BaseBlock {
 
             src: this.src,
 
-            caption: this.caption,
-
-            width: this.width
+            caption: this.caption
 
         };
 
