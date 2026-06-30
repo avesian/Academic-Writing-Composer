@@ -1,4 +1,3 @@
-```javascript
 /**
  * Canvas.js
  * Academic Writing Composer
@@ -147,4 +146,4 @@ export default class Canvas {
     }
 
 }
-```
+
