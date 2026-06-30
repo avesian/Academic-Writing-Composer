@@ -1,10 +1,10 @@
 /**
  * DocumentComposer.js
  * Academic Writing Composer
- * Document Composition Engine
  */
 
 import AcademicDocument from "../AcademicDocument.js";
+import TemplateManager from "../templates/TemplateManager.js";
 
 export default class DocumentComposer {
 
@@ -14,22 +14,27 @@ export default class DocumentComposer {
             ? document
             : new AcademicDocument();
 
+        this.templates = new TemplateManager();
+
     }
 
-    /**
-     * Create New Document
-     */
-    newDocument() {
+    newDocument(template = null) {
 
         this.document = new AcademicDocument();
+
+        if (template) {
+
+            this.templates.apply(
+                template,
+                this.document
+            );
+
+        }
 
         return this.document;
 
     }
 
-    /**
-     * Open Existing Document
-     */
     open(data) {
 
         this.document = new AcademicDocument();
@@ -40,27 +45,18 @@ export default class DocumentComposer {
 
     }
 
-    /**
-     * Get Active Document
-     */
     getDocument() {
 
         return this.document;
 
     }
 
-    /**
-     * Add Block
-     */
     addBlock(type, data = {}) {
 
         return this.document.addBlock(type, data);
 
     }
 
-    /**
-     * Remove Block
-     */
     removeBlock(id) {
 
         this.document.removeBlock(id);
@@ -69,9 +65,6 @@ export default class DocumentComposer {
 
     }
 
-    /**
-     * Update Block
-     */
     updateBlock(id, data = {}) {
 
         const block = this.document.getBlock(id);
@@ -90,9 +83,6 @@ export default class DocumentComposer {
 
     }
 
-    /**
-     * Move Block
-     */
     moveBlock(fromIndex, toIndex) {
 
         const blocks = this.document.getBlocks();
@@ -118,9 +108,17 @@ export default class DocumentComposer {
 
     }
 
-    /**
-     * Clear Document
-     */
+    applyTemplate(name) {
+
+        this.templates.apply(
+            name,
+            this.document
+        );
+
+        return this.document;
+
+    }
+
     clear() {
 
         this.document.clear();
@@ -129,17 +127,9 @@ export default class DocumentComposer {
 
     }
 
-    /**
-     * Metadata
-     */
     setMetadata(metadata = {}) {
 
-        Object.assign(
-            this.document.metadata,
-            metadata
-        );
-
-        this.document.touch();
+        this.document.setMetadata(metadata);
 
         return this;
 
@@ -147,13 +137,10 @@ export default class DocumentComposer {
 
     getMetadata() {
 
-        return this.document.metadata;
+        return this.document.getMetadata();
 
     }
 
-    /**
-     * Content
-     */
     setContent(html) {
 
         this.document.setContent(html);
@@ -168,18 +155,12 @@ export default class DocumentComposer {
 
     }
 
-    /**
-     * Export
-     */
     exportJSON() {
 
         return this.document.toJSON();
 
     }
 
-    /**
-     * Import
-     */
     importJSON(data) {
 
         this.document.fromJSON(data);
@@ -189,4 +170,3 @@ export default class DocumentComposer {
     }
 
 }
-
