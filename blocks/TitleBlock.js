@@ -18,32 +18,15 @@ export default class TitleBlock extends BaseBlock {
 
     render() {
 
-        return `
-            <header class="awc-title-page">
-
-                <h1 class="awc-title">
-                    ${this.content}
-                </h1>
-
-                ${
-                    this.subtitle
-                        ? `<h2 class="awc-subtitle">${this.subtitle}</h2>`
-                        : ""
-                }
-
-            </header>
-        `;
+        return "<h1>" + this.content + "</h1>";
 
     }
 
     toJSON() {
 
         return {
-
             ...super.toJSON(),
-
             subtitle: this.subtitle
-
         };
 
     }
