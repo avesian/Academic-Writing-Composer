@@ -1,3 +1,4 @@
+```javascript
 /**
  * App.js
  * Academic Writing Composer
@@ -17,13 +18,9 @@ export default class App {
         this.root = null;
 
         this.workspace = null;
-
         this.toolbar = null;
-
         this.sidebar = null;
-
         this.canvas = null;
-
         this.statusbar = null;
 
         this.events = new Map();
@@ -37,9 +34,7 @@ export default class App {
         this.root = document.getElementById("app");
 
         if (!this.root) {
-
-            throw new Error("#app container not found.");
-
+            throw new Error("Container #app tidak ditemukan.");
         }
 
         this.createWorkspace();
@@ -52,6 +47,8 @@ export default class App {
 
         this.emit("app:ready");
 
+        document.getElementById("loading-screen")?.remove();
+
         return this;
 
     }
@@ -60,115 +57,83 @@ export default class App {
 
         this.workspace = new Workspace(this);
 
-        this.root.appendChild(
+        const element = this.workspace.render();
 
-            this.workspace.render()
+        if (!(element instanceof HTMLElement)) {
+            throw new Error("Workspace.render() harus mengembalikan HTMLElement.");
+        }
 
-        );
+        this.root.appendChild(element);
 
     }
 
     mountComponents() {
 
         this.toolbar = new Toolbar(this);
-
         this.sidebar = new Sidebar(this);
-
         this.canvas = new Canvas(this);
-
         this.statusbar = new Statusbar(this);
 
         this.workspace
             .getToolbarContainer()
-            .appendChild(
-                this.toolbar.render()
-            );
+            .appendChild(this.toolbar.render());
 
         this.workspace
             .getSidebarContainer()
-            .appendChild(
-                this.sidebar.render()
-            );
+            .appendChild(this.sidebar.render());
 
         this.workspace
             .getCanvasContainer()
-            .appendChild(
-                this.canvas.render()
-            );
+            .appendChild(this.canvas.render());
 
         this.workspace
             .getStatusbarContainer()
-            .appendChild(
-                this.statusbar.render()
-            );
+            .appendChild(this.statusbar.render());
 
     }
 
     bindEvents() {
 
-        window.addEventListener(
+        window.addEventListener("beforeunload", () => {
 
-            "beforeunload",
+            this.emit("app:close");
 
-            event => {
-
-                this.emit("app:close");
-
-            }
-
-        );
+        });
 
     }
 
     on(event, callback) {
 
         if (!this.events.has(event)) {
-
             this.events.set(event, []);
-
         }
 
-        this.events
-            .get(event)
-            .push(callback);
-
-    }
-
-    emit(event, payload = null) {
-
-        if (!this.events.has(event)) {
-
-            return;
-
-        }
-
-        this.events
-            .get(event)
-            .forEach(listener => {
-
-                listener(payload);
-
-            });
+        this.events.get(event).push(callback);
 
     }
 
     off(event, callback) {
 
         if (!this.events.has(event)) {
-
             return;
-
         }
 
         this.events.set(
-
             event,
-
-            this.events
-                .get(event)
-                .filter(fn => fn !== callback)
-
+            this.events.get(event).filter(fn => fn !== callback)
         );
+
+    }
+
+    emit(event, payload = null) {
+
+        if (!this.events.has(event)) {
+            return;
+        }
+
+        for (const listener of this.events.get(event)) {
+            listener(payload);
+        }
 
     }
 
@@ -185,4 +150,4 @@ export default class App {
     }
 
 }
-
+```
