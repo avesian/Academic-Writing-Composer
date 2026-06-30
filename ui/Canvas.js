@@ -1,7 +1,6 @@
 /**
  * Canvas.js
  * Academic Writing Composer
- * Canvas View
  */
 
 import DocumentEditor from "../editor/DocumentEditor.js";
@@ -19,8 +18,6 @@ export default class Canvas {
         this.editor = null;
 
         this.documentEditor = null;
-
-        this.state = "CREATED";
 
     }
 
@@ -44,10 +41,6 @@ export default class Canvas {
 
         this.editor.className = "awc-editor";
 
-        this.editor.contentEditable = true;
-
-        this.editor.spellcheck = false;
-
         this.page.appendChild(this.editor);
 
         this.element.appendChild(this.page);
@@ -60,19 +53,17 @@ export default class Canvas {
 
         this.refresh();
 
-        this.state = "READY";
-
         return this.element;
 
     }
 
     bindEvents() {
 
-        this.editor.addEventListener("input", () => {
+        this.app.on("block:add", type => {
 
-            this.documentEditor.setContent(
-                this.editor.innerHTML
-            );
+            this.documentEditor.addBlock(type);
+
+            this.refresh();
 
         });
 
@@ -81,20 +72,6 @@ export default class Canvas {
             this.documentEditor.newDocument();
 
             this.refresh();
-
-        });
-
-        this.app.on("document:open", data => {
-
-            this.documentEditor.open(data);
-
-            this.refresh();
-
-        });
-
-        this.app.on("document:save", () => {
-
-            this.documentEditor.save();
 
         });
 
@@ -114,41 +91,10 @@ export default class Canvas {
 
     }
 
-    focus() {
-
-        this.editor.focus();
-
-    }
-
     getEditor() {
 
         return this.documentEditor;
 
     }
 
-    getDocument() {
-
-        return this.documentEditor.getDocument();
-
-    }
-
-    getContent() {
-
-        return this.documentEditor.getContent();
-
-    }
-
-    getElement() {
-
-        return this.element;
-
-    }
-
-    getState() {
-
-        return this.state;
-
-    }
-
 }
-
