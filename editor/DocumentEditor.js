@@ -1,9 +1,10 @@
 /**
  * DocumentEditor.js
- * Integrated with AcademicDocument
+ * Academic Writing Composer
+ * UI Adapter
  */
 
-import AcademicDocument from "../AcademicDocument.js";
+import DocumentComposer from "./DocumentComposer.js";
 
 export default class DocumentEditor {
 
@@ -11,7 +12,7 @@ export default class DocumentEditor {
 
         this.app = app;
 
-        this.document = new AcademicDocument();
+        this.composer = new DocumentComposer();
 
         this.state = "READY";
 
@@ -19,56 +20,37 @@ export default class DocumentEditor {
 
     newDocument() {
 
-        this.document = new AcademicDocument();
+        const document = this.composer.newDocument();
 
         this.app?.emit(
-
             "document:created",
-
-            this.document
-
+            document
         );
 
-        return this.document;
+        return document;
 
     }
 
-    open(documentData) {
+    open(data) {
 
-        if (documentData instanceof AcademicDocument) {
-
-            this.document = documentData;
-
-        } else {
-
-            this.document = new AcademicDocument();
-
-            this.document.fromJSON(documentData);
-
-        }
+        const document = this.composer.importJSON(data);
 
         this.app?.emit(
-
             "document:opened",
-
-            this.document
-
+            document
         );
 
-        return this.document;
+        return document;
 
     }
 
     save() {
 
-        const json = this.document.toJSON();
+        const json = this.composer.exportJSON();
 
         this.app?.emit(
-
             "document:saved",
-
             json
-
         );
 
         return json;
@@ -77,53 +59,82 @@ export default class DocumentEditor {
 
     setContent(html) {
 
-        this.document.setContent(html);
+        this.composer.setContent(html);
 
         this.app?.emit(
-
-            "document:updated",
-
-            this.document
-
+            "document:changed",
+            html
         );
 
     }
 
     getContent() {
 
-        return this.document.getContent();
+        return this.composer.getContent();
 
     }
 
     getDocument() {
 
-        return this.document;
+        return this.composer.getDocument();
 
     }
 
     renderHTML() {
 
-        return this.document.getContent();
+        return this.getContent();
 
     }
 
     exportJSON() {
 
-        return this.document.toJSON();
+        return this.composer.exportJSON();
 
     }
 
     importJSON(data) {
 
-        this.document.fromJSON(data);
+        const document = this.composer.importJSON(data);
 
         this.app?.emit(
-
             "document:updated",
-
-            this.document
-
+            document
         );
+
+        return document;
+
+    }
+
+    addBlock(type, data = {}) {
+
+        return this.composer.addBlock(type, data);
+
+    }
+
+    removeBlock(id) {
+
+        return this.composer.removeBlock(id);
+
+    }
+
+    updateBlock(id, data = {}) {
+
+        return this.composer.updateBlock(id, data);
+
+    }
+
+    moveBlock(fromIndex, toIndex) {
+
+        return this.composer.moveBlock(
+            fromIndex,
+            toIndex
+        );
+
+    }
+
+    clear() {
+
+        return this.composer.clear();
 
     }
 
