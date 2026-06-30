@@ -1,6 +1,7 @@
 import Workspace from "./Workspace.js";
+import Toolbar from "./Toolbar.js";
 
-console.log("App imported");
+console.log("Toolbar imported");
 
 export default class App {
 
