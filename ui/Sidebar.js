@@ -1,7 +1,7 @@
 /**
  * Sidebar.js
  * Academic Writing Composer
- * Sidebar Container
+ * Block Toolbox
  */
 
 export default class Sidebar {
@@ -13,8 +13,6 @@ export default class Sidebar {
         this.element = null;
 
         this.state = "CREATED";
-
-        this.sections = {};
 
     }
 
@@ -30,128 +28,68 @@ export default class Sidebar {
 
         this.element.className = "awc-sidebar";
 
-        this.createSections();
+        this.element.innerHTML = `
+
+            <div class="awc-sidebar-title">
+
+                Block Toolbox
+
+            </div>
+
+            <button data-block="paragraph">
+                📝 Paragraph
+            </button>
+
+            <button data-block="heading">
+                🔖 Heading
+            </button>
+
+            <button data-block="chapter">
+                📖 Chapter
+            </button>
+
+            <button data-block="title">
+                🏷 Title
+            </button>
+
+            <button data-block="figure">
+                🖼 Figure
+            </button>
+
+            <button data-block="table">
+                📊 Table
+            </button>
+
+        `;
 
         this.bindEvents();
 
-        this.state = "RENDERED";
+        this.state = "READY";
 
         return this.element;
-
-    }
-
-    createSections() {
-
-        const panels = [
-
-            {
-                id: "outline",
-                title: "Outline"
-            },
-
-            {
-                id: "blocks",
-                title: "Blocks"
-            },
-
-            {
-                id: "properties",
-                title: "Properties"
-            }
-
-        ];
-
-        panels.forEach(panel => {
-
-            const section = document.createElement("section");
-
-            section.className = "awc-sidebar-section";
-
-            section.innerHTML = `
-                <h3 class="awc-sidebar-title">
-                    ${panel.title}
-                </h3>
-
-                <div
-                    id="awc-${panel.id}"
-                    class="awc-sidebar-content">
-                </div>
-            `;
-
-            this.sections[panel.id] = section.querySelector(
-                ".awc-sidebar-content"
-            );
-
-            this.element.appendChild(section);
-
-        });
 
     }
 
     bindEvents() {
 
-        this.app.on(
-            "outline:update",
-            data => this.updateOutline(data)
-        );
+        this.element.querySelectorAll("button")
 
-        this.app.on(
-            "blocks:update",
-            data => this.updateBlocks(data)
-        );
+            .forEach(button => {
 
-        this.app.on(
-            "properties:update",
-            data => this.updateProperties(data)
-        );
+                button.addEventListener("click", () => {
 
-    }
+                    this.app.emit(
 
-    updateOutline(content = "") {
+                        "block:add",
 
-        this.sections.outline.innerHTML = content;
+                        button.dataset.block
 
-    }
+                    );
 
-    updateBlocks(content = "") {
+                });
 
-        this.sections.blocks.innerHTML = content;
-
-    }
-
-    updateProperties(content = "") {
-
-        this.sections.properties.innerHTML = content;
-
-    }
-
-    clear() {
-
-        Object.values(this.sections).forEach(section => {
-
-            section.innerHTML = "";
-
-        });
-
-    }
-
-    getSection(name) {
-
-        return this.sections[name];
-
-    }
-
-    getElement() {
-
-        return this.element;
-
-    }
-
-    getState() {
-
-        return this.state;
+            });
 
     }
 
 }
-
