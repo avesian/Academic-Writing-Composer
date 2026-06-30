@@ -5,6 +5,7 @@
 
 import AcademicDocument from "../AcademicDocument.js";
 import TemplateManager from "../templates/TemplateManager.js";
+import RuleEngine from "../RuleEngine.js";
 
 export default class DocumentComposer {
 
@@ -15,6 +16,8 @@ export default class DocumentComposer {
             : new AcademicDocument();
 
         this.templates = new TemplateManager();
+
+        this.rules = new RuleEngine();
 
     }
 
@@ -42,6 +45,33 @@ export default class DocumentComposer {
         this.document.fromJSON(data);
 
         return this.document;
+
+    }
+
+    applyTemplate(name) {
+
+        this.templates.apply(
+            name,
+            this.document
+        );
+
+        return this.document;
+
+    }
+
+    setRules(rules) {
+
+        this.rules.load(rules);
+
+        return this;
+
+    }
+
+    validate() {
+
+        return this.rules.validate(
+            this.document
+        );
 
     }
 
@@ -105,17 +135,6 @@ export default class DocumentComposer {
         this.document.touch();
 
         return true;
-
-    }
-
-    applyTemplate(name) {
-
-        this.templates.apply(
-            name,
-            this.document
-        );
-
-        return this.document;
 
     }
 
