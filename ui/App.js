@@ -1,27 +1,143 @@
+/**
+
+* App.js
+* Academic Writing Composer
+* Bootstrap Application
+  */
+
+```javascript
 import Workspace from "./Workspace.js";
 import Toolbar from "./Toolbar.js";
 import Sidebar from "./Sidebar.js";
+import Statusbar from "./Statusbar.js";
 
 export default class App {
 
+    constructor() {
+
+        this.root = null;
+
+        this.workspace = null;
+        this.toolbar = null;
+        this.sidebar = null;
+        this.statusbar = null;
+
+        this.events = new Map();
+
+        this.state = "CREATED";
+
+    }
+
     async init() {
 
-        const root = document.getElementById("app");
+        this.root = document.getElementById("app");
 
-        const workspace = new Workspace(this);
+        if (!this.root) {
+            throw new Error("#app container not found.");
+        }
 
-        root.appendChild(workspace.render());
+        this.workspace = new Workspace(this);
 
-        const toolbar = new Toolbar(this);
-        workspace
+        this.root.appendChild(
+            this.workspace.render()
+        );
+
+        this.toolbar = new Toolbar(this);
+
+        this.workspace
             .getToolbarContainer()
-            .appendChild(toolbar.render());
+            .appendChild(
+                this.toolbar.render()
+            );
 
-        const sidebar = new Sidebar(this);
-        workspace
+        this.sidebar = new Sidebar(this);
+
+        this.workspace
             .getSidebarContainer()
-            .appendChild(sidebar.render());
+            .appendChild(
+                this.sidebar.render()
+            );
+
+        this.statusbar = new Statusbar(this);
+
+        this.workspace
+            .getStatusbarContainer()
+            .appendChild(
+                this.statusbar.render()
+            );
+
+        this.bindEvents();
+
+        this.state = "READY";
+
+        this.emit("app:ready");
+
+        document
+            .getElementById("loading-screen")
+            ?.remove();
+
+        return this;
+
+    }
+
+    bindEvents() {
+
+        window.addEventListener("beforeunload", () => {
+
+            this.emit("app:close");
+
+        });
+
+    }
+
+    on(event, callback) {
+
+        if (!this.events.has(event)) {
+            this.events.set(event, []);
+        }
+
+        this.events.get(event).push(callback);
+
+    }
+
+    off(event, callback) {
+
+        if (!this.events.has(event)) {
+            return;
+        }
+
+        this.events.set(
+            event,
+            this.events
+                .get(event)
+                .filter(fn => fn !== callback)
+        );
+
+    }
+
+    emit(event, payload = null) {
+
+        if (!this.events.has(event)) {
+            return;
+        }
+
+        for (const listener of this.events.get(event)) {
+            listener(payload);
+        }
+
+    }
+
+    getComponent(name) {
+
+        return this[name];
+
+    }
+
+    getState() {
+
+        return this.state;
 
     }
 
 }
+```
