@@ -1,3 +1,4 @@
+```javascript
 /**
  * Toolbar.js
  * Academic Writing Composer
@@ -12,18 +13,16 @@ export default class Toolbar {
 
         this.element = null;
 
-        this.state = "CREATED";
-
         this.buttons = [];
+
+        this.state = "CREATED";
 
     }
 
     render() {
 
         if (this.element) {
-
             return this.element;
-
         }
 
         this.element = document.createElement("div");
@@ -32,7 +31,7 @@ export default class Toolbar {
 
         this.createButtons();
 
-        this.state = "RENDERED";
+        this.state = "READY";
 
         return this.element;
 
@@ -41,30 +40,27 @@ export default class Toolbar {
     createButtons() {
 
         const actions = [
-
             ["New", "document:new"],
             ["Open", "document:open"],
             ["Save", "document:save"],
-
             ["Undo", "history:undo"],
             ["Redo", "history:redo"],
-
             ["Preview", "preview:open"],
             ["Export", "export:open"],
-
             ["Theme", "theme:toggle"]
-
         ];
 
-        actions.forEach(([label, event]) => {
+        for (const [label, event] of actions) {
 
             const button = document.createElement("button");
 
-            button.className = "awc-button";
-
             button.type = "button";
 
+            button.className = "awc-button";
+
             button.textContent = label;
+
+            button.dataset.event = event;
 
             button.addEventListener("click", () => {
 
@@ -76,30 +72,6 @@ export default class Toolbar {
 
             this.element.appendChild(button);
 
-        });
-
-    }
-
-    enable(label) {
-
-        const button = this.findButton(label);
-
-        if (button) {
-
-            button.disabled = false;
-
-        }
-
-    }
-
-    disable(label) {
-
-        const button = this.findButton(label);
-
-        if (button) {
-
-            button.disabled = true;
-
         }
 
     }
@@ -110,7 +82,27 @@ export default class Toolbar {
 
             button => button.textContent === label
 
-        );
+        ) ?? null;
+
+    }
+
+    enable(label) {
+
+        const button = this.findButton(label);
+
+        if (button) {
+            button.disabled = false;
+        }
+
+    }
+
+    disable(label) {
+
+        const button = this.findButton(label);
+
+        if (button) {
+            button.disabled = true;
+        }
 
     }
 
@@ -127,4 +119,4 @@ export default class Toolbar {
     }
 
 }
-
+```
