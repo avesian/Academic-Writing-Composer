@@ -1,4 +1,3 @@
-```javascript
 /**
  * App.js
  * Academic Writing Composer
@@ -150,4 +149,4 @@ export default class App {
     }
 
 }
-```
+
