@@ -1,5 +1,5 @@
 /**
-* Sidebar.js
+ * Sidebar.js
  * Academic Writing Composer
  * Sidebar Container
  */
