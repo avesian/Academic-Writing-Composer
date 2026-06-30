@@ -1,71 +1,90 @@
 /**
- * BaseBlock.js
- * Base Class for all Blocks
- */
+* BaseBlock.js
+* Academic Writing Composer
+* Base Block Class
+  */
 
 export default class BaseBlock {
 
-    constructor(data = {}) {
+```
+constructor(data = {}) {
 
-        this.id = data.id || crypto.randomUUID();
+    this.id = data.id || this.generateId();
 
-        this.type = data.type || "block";
+    this.type = data.type || "block";
 
-        this.content = data.content || "";
+    this.content = data.content || "";
 
-        this.enabled = data.enabled ?? true;
+    this.enabled = data.enabled !== undefined
+        ? data.enabled
+        : true;
 
-        this.order = data.order ?? 0;
+    this.order = data.order || 0;
 
-        this.page = data.page ?? null;
-
-        this.createdAt = data.createdAt || new Date();
-
-        this.updatedAt = data.updatedAt || new Date();
-
-    }
-
-    setContent(content) {
-
-        this.content = content;
-
-        this.touch();
-
-    }
-
-    setPage(page) {
-
-        this.page = page;
-
-    }
-
-    touch() {
-
-        this.updatedAt = new Date();
-
-    }
-
-    render() {
-
-        return this.content;
-
-    }
-
-    toJSON() {
-
-        return {
-            id: this.id,
-            type: this.type,
-            content: this.content,
-            enabled: this.enabled,
-            order: this.order,
-            page: this.page,
-            createdAt: this.createdAt,
-            updatedAt: this.updatedAt
-        };
-
-    }
+    this.page = data.page || null;
 
 }
+
+generateId() {
+
+    return (
+        "block-" +
+        Date.now() +
+        "-" +
+        Math.random()
+            .toString(36)
+            .substring(2, 10)
+    );
+
+}
+
+setContent(content) {
+
+    this.content = content;
+
+    return this;
+
+}
+
+getContent() {
+
+    return this.content;
+
+}
+
+setPage(page) {
+
+    this.page = page;
+
+    return this;
+
+}
+
+render() {
+
+    return this.content;
+
+}
+
+toJSON() {
+
+    return {
+
+        id: this.id,
+
+        type: this.type,
+
+        content: this.content,
+
+        enabled: this.enabled,
+
+        order: this.order,
+
+        page: this.page
+
+    };
+
+}
+
 
 
