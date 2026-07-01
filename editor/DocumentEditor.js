@@ -8,7 +8,7 @@ import DocumentRenderer from "../DocumentRenderer.js";
 
 export default class DocumentEditor {
 
-```
+
 constructor(app) {
 
     this.app = app;
