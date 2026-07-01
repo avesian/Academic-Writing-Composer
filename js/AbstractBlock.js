@@ -4,7 +4,7 @@
  * Version: 1.0.0
  */
 
-import Block from "./blocks/Block.js";
+import Block from "./js/Block.js";
 
 export default class AbstractBlock extends Block {
     constructor(options = {}) {
