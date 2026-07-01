@@ -4,8 +4,8 @@
  * Version: 1.0.0
  */
 
-import AcademicDocument from "../core/AcademicDocument.js";
-import AcademicComposer from "../runtime/AcademicComposer.js";
+import AcademicDocument from "./js/AcademicDocument.js";
+import AcademicComposer from "./runtime/AcademicComposer.js";
 
 export default class Editor {
 
