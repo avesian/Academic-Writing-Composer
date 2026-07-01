@@ -5,7 +5,7 @@
  */
 
 import Parser from "./Parser.js";
-import AcademicDocument from "../core/AcademicDocument.js";
+import AcademicDocument from "./AcademicDocument.js";
 
 export default class DocxParser extends Parser {
     constructor(options = {}) {
