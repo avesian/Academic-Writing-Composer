@@ -4,7 +4,7 @@
  * Version: 1.0.0
  */
 
-import Parser from "../core/Parser.js";
+import Parser from "./Parser.js";
 import AcademicDocument from "../core/AcademicDocument.js";
 
 export default class DocxParser extends Parser {
