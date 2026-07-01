@@ -3,7 +3,7 @@
  * Academic Writing Composer
  */
 
-import DocumentTemplate from "../DocumentTemplate.js";
+import DocumentTemplate from "./editor/DocumentTemplate.js";
 
 export default class ThesisTemplate extends DocumentTemplate {
 
