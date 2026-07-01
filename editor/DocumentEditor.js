@@ -4,7 +4,7 @@
  */
 
 import DocumentComposer from "./DocumentComposer.js";
-import DocumentRenderer from "../DocumentRenderer.js";
+import DocumentRenderer from "./DocumentRenderer.js";
 
 export default class DocumentEditor {
 
