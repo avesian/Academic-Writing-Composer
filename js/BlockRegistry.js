@@ -1,4 +1,3 @@
-```javascript
 /**
  * BlockRegistry.js
  * Academic Writing Composer
@@ -61,4 +60,4 @@ export default class BlockRegistry {
     }
 
 }
-```
+
