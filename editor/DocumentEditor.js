@@ -1,148 +1,153 @@
 /**
-* DocumentEditor.js
-* Academic Writing Composer
-  */
+ * DocumentEditor.js
+ * Academic Writing Composer
+ */
 
 import DocumentComposer from "./DocumentComposer.js";
 import DocumentRenderer from "../DocumentRenderer.js";
 
 export default class DocumentEditor {
 
+    constructor(app) {
 
-constructor(app) {
+        this.app = app;
 
-    this.app = app;
+        this.composer = new DocumentComposer();
 
-    this.composer = new DocumentComposer();
+        this.renderer = new DocumentRenderer();
 
-    this.renderer = new DocumentRenderer();
+        this.state = "READY";
 
-    this.state = "READY";
+    }
 
-}
+    newDocument(template = null) {
 
-newDocument() {
+        const document = this.composer.newDocument(template);
 
-    const document = this.composer.newDocument();
+        this.app?.emit(
+            "document:created",
+            document
+        );
 
-    this.app?.emit(
-        "document:created",
-        document
-    );
+        return document;
 
-    return document;
+    }
 
-}
+    open(data) {
 
-open(data) {
+        const document = this.composer.importJSON(data);
 
-    const document = this.composer.importJSON(data);
+        this.app?.emit(
+            "document:opened",
+            document
+        );
 
-    this.app?.emit(
-        "document:opened",
-        document
-    );
+        return document;
 
-    return document;
+    }
 
-}
+    save() {
 
-save() {
+        const json = this.composer.exportJSON();
 
-    const json = this.composer.exportJSON();
+        this.app?.emit(
+            "document:saved",
+            json
+        );
 
-    this.app?.emit(
-        "document:saved",
-        json
-    );
+        return json;
 
-    return json;
+    }
 
-}
+    setContent(html) {
 
-setContent(html) {
+        this.composer.setContent(html);
 
-    this.composer.setContent(html);
+        this.app?.emit(
+            "document:changed",
+            html
+        );
 
-    this.app?.emit(
-        "document:changed",
-        html
-    );
+    }
 
-}
+    getContent() {
 
-getContent() {
+        return this.composer.getContent();
 
-    return this.composer.getContent();
+    }
 
-}
+    getDocument() {
 
-getDocument() {
+        return this.composer.getDocument();
 
-    return this.composer.getDocument();
+    }
 
-}
+    renderHTML() {
 
-renderHTML() {
+        this.renderer.setDocument(
+            this.composer.getDocument()
+        );
 
-    this.renderer.setDocument(
+        return this.renderer.render();
 
-        this.composer.getDocument()
+    }
 
-    );
+    exportJSON() {
 
-    return this.renderer.render();
+        return this.composer.exportJSON();
 
-}
+    }
 
-exportJSON() {
+    importJSON(data) {
 
-    return this.composer.exportJSON();
+        const document = this.composer.importJSON(data);
 
-}
+        this.app?.emit(
+            "document:updated",
+            document
+        );
 
-importJSON(data) {
+        return document;
 
-    const document = this.composer.importJSON(data);
+    }
 
-    this.app?.emit(
-        "document:updated",
-        document
-    );
+    addBlock(type, data = {}) {
 
-    return document;
+        return this.composer.addBlock(
+            type,
+            data
+        );
 
-}
+    }
 
-addBlock(type, data = {}) {
+    removeBlock(id) {
 
-    return this.composer.addBlock(type, data);
+        return this.composer.removeBlock(id);
 
-}
+    }
 
-removeBlock(id) {
+    updateBlock(id, data = {}) {
 
-    return this.composer.removeBlock(id);
+        return this.composer.updateBlock(
+            id,
+            data
+        );
 
-}
+    }
 
-updateBlock(id, data = {}) {
+    moveBlock(fromIndex, toIndex) {
 
-    return this.composer.updateBlock(id, data);
+        return this.composer.moveBlock(
+            fromIndex,
+            toIndex
+        );
 
-}
+    }
 
-moveBlock(fromIndex, toIndex) {
+    clear() {
 
-    return this.composer.moveBlock(
-        fromIndex,
-        toIndex
-    );
+        return this.composer.clear();
 
-}
-
-clear() {
-
-    return this.composer.clear();
+    }
 
 }
