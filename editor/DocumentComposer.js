@@ -3,9 +3,9 @@
  * Academic Writing Composer
  */
 
-import AcademicDocument from "./AcademicDocument.js";
+import AcademicDocument from "./js/AcademicDocument.js";
 import TemplateManager from "./templates/TemplateManager.js";
-import RuleEngine from "./RuleEngine.js";
+import RuleEngine from "./js/RuleEngine.js";
 
 export default class DocumentComposer {
 
