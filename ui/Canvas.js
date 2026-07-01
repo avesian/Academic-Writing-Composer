@@ -3,7 +3,7 @@
  * Academic Writing Composer
  */
 
-import DocumentEditor from "../editor/DocumentEditor.js";
+import DocumentEditor from "./editor/DocumentEditor.js";
 
 export default class Canvas {
 
