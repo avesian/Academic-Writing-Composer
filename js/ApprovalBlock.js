@@ -4,7 +4,7 @@
  * Version: 1.0.0
  */
 
-import Block from "../core/Block.js";
+import Block from "./block/Block.js";
 
 export default class ApprovalBlock extends Block {
     constructor(options = {}) {
