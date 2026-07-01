@@ -1,12 +1,13 @@
 /**
  * App.js
- * Test 2
- * Workspace + Toolbar + Sidebar
+ * Academic Writing Composer
  */
 
 import Workspace from "./Workspace.js";
 import Toolbar from "./Toolbar.js";
 import Sidebar from "./Sidebar.js";
+import Canvas from "./Canvas.js";
+import Statusbar from "./Statusbar.js";
 
 export default class App {
 
@@ -15,8 +16,14 @@ export default class App {
         this.root = null;
 
         this.workspace = null;
+
         this.toolbar = null;
+
         this.sidebar = null;
+
+        this.canvas = null;
+
+        this.statusbar = null;
 
         this.events = new Map();
 
@@ -27,13 +34,17 @@ export default class App {
         this.root = document.getElementById("app");
 
         if (!this.root) {
+
             throw new Error("#app not found");
+
         }
 
         this.workspace = new Workspace(this);
 
         this.root.appendChild(
+
             this.workspace.render()
+
         );
 
         this.toolbar = new Toolbar(this);
@@ -50,6 +61,22 @@ export default class App {
             .getSidebarContainer()
             .appendChild(
                 this.sidebar.render()
+            );
+
+        this.canvas = new Canvas(this);
+
+        this.workspace
+            .getCanvasContainer()
+            .appendChild(
+                this.canvas.render()
+            );
+
+        this.statusbar = new Statusbar(this);
+
+        this.workspace
+            .getStatusbarContainer()
+            .appendChild(
+                this.statusbar.render()
             );
 
         return this;
@@ -93,13 +120,15 @@ export default class App {
         }
 
         this.events.set(
+
             event,
+
             this.events
                 .get(event)
                 .filter(fn => fn !== callback)
+
         );
 
     }
 
 }
-
