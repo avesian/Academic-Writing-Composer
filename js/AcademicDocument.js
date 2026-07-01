@@ -3,9 +3,9 @@
  * Academic Writing Composer
  */
 
-import DocumentMetadata from "../DocumentMetadata.js";
-import BlockFactory from "../BlockFactory.js";
-import BlockRegistry from "../BlockRegistry.js";
+import DocumentMetadata from "./DocumentMetadata.js";
+import BlockFactory from "./BlockFactory.js";
+import BlockRegistry from "./BlockRegistry.js";
 
 export default class AcademicDocument {
 
