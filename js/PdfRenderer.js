@@ -4,7 +4,7 @@
  * Version: 1.0.0
  */
 
-import Renderer from "../core/Renderer.js";
+import Renderer from "./Renderer.js";
 
 export default class PdfRenderer extends Renderer {
     constructor(options = {}) {
