@@ -1,100 +1,17 @@
-/**
- * Canvas.js
- * Academic Writing Composer
- */
+this.app.on("block:add", type => {
 
-import DocumentEditor from "../editor/DocumentEditor.js";
+    console.log("ADD BLOCK:", type);
 
-export default class Canvas {
+    const block = this.documentEditor.addBlock(type);
 
-    constructor(app) {
+    console.log(block);
 
-        this.app = app;
+    console.log(
+        this.documentEditor
+            .getDocument()
+            .getBlocks()
+    );
 
-        this.element = null;
+    this.refresh();
 
-        this.page = null;
-
-        this.editor = null;
-
-        this.documentEditor = null;
-
-    }
-
-    render() {
-
-        if (this.element) {
-
-            return this.element;
-
-        }
-
-        this.element = document.createElement("section");
-
-        this.element.className = "awc-canvas";
-
-        this.page = document.createElement("div");
-
-        this.page.className = "awc-page";
-
-        this.editor = document.createElement("div");
-
-        this.editor.className = "awc-editor";
-
-        this.page.appendChild(this.editor);
-
-        this.element.appendChild(this.page);
-
-        this.documentEditor = new DocumentEditor(this.app);
-
-        this.bindEvents();
-
-        this.documentEditor.newDocument();
-
-        this.refresh();
-
-        return this.element;
-
-    }
-
-    bindEvents() {
-
-        this.app.on("block:add", type => {
-
-            this.documentEditor.addBlock(type);
-
-            this.refresh();
-
-        });
-
-        this.app.on("document:new", () => {
-
-            this.documentEditor.newDocument();
-
-            this.refresh();
-
-        });
-
-        this.app.on("document:refresh", () => {
-
-            this.refresh();
-
-        });
-
-    }
-
-    refresh() {
-
-        this.editor.innerHTML =
-
-            this.documentEditor.renderHTML();
-
-    }
-
-    getEditor() {
-
-        return this.documentEditor;
-
-    }
-
-}
+});
