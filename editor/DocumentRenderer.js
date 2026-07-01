@@ -5,7 +5,7 @@
 
 export default class DocumentRenderer {
 
-```
+
 constructor(document = null) {
 
     this.document = document;
