@@ -23,6 +23,8 @@ export default class Canvas {
 
     render() {
 
+        alert("Canvas.render()");
+
         console.log("Canvas.render()");
 
         if (this.element) {
@@ -44,6 +46,8 @@ export default class Canvas {
         this.editor.className = "awc-editor";
 
         this.editor.contentEditable = true;
+
+        this.editor.spellcheck = false;
 
         this.page.appendChild(this.editor);
 
@@ -69,6 +73,8 @@ export default class Canvas {
 
         this.editor.addEventListener("input", () => {
 
+            console.log("INPUT");
+
             this.documentEditor.setContent(
                 this.editor.innerHTML
             );
@@ -77,18 +83,17 @@ export default class Canvas {
 
         this.app.on("block:add", type => {
 
-            console.log("BLOCK EVENT:", type);
+            console.log("ADD BLOCK:", type);
 
             const block = this.documentEditor.addBlock(type);
 
             console.log("BLOCK =", block);
 
             console.log(
-                "TOTAL BLOCKS =",
+                "BLOCKS =",
                 this.documentEditor
                     .getDocument()
                     .getBlocks()
-                    .length
             );
 
             this.refresh();
