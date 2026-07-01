@@ -4,7 +4,7 @@
  * Version: 1.0.0
  */
 
-import Block from "../core/Block.js";
+import Block from "./Block.js";
 
 export default class DedicationBlock extends Block {
     constructor(options = {}) {
